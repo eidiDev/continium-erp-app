@@ -48,7 +48,7 @@ class ListProducts extends Component {
     super();
     this.state = {
       data: [],
-      skip: 0,
+      skip: 1,
       limit: 20,
       total: 0
     };
@@ -68,7 +68,10 @@ class ListProducts extends Component {
   fetchLeftList = () => {
     const {skip,limit} = this.state;
     api
-      .get(`${model}/`, {})
+      .get(`${model}/`, {params: {
+        page: skip,
+        limit: limit
+      }})
       .then((result) => {
         console.log(result)
         this.setState({
@@ -83,24 +86,20 @@ class ListProducts extends Component {
   change = (pagination) => {
     // pagination.current, pagination.pageSize
     
-    console.log(pagination);
-    if(pagination.current === 1){
-      this.setState({
-        skip: 0, 
-      });
-    }else{
-      this.setState({
-        skip: parseInt(pagination.current) * 10, 
-      });
-    }
+    this.setState({
+      skip: pagination.current, 
+    });
+  
+
+    this.fetchLeftList();
   }
 
   getTotal = () => {
       api
-      .get(`${model}/getTotal`, {})
+      .get(`${model}/api/getTotal`, {})
       .then((result) => {
         this.setState({
-          total: result.data.count,
+          total: result.data[0].count,
         });
       })
       .catch(function (error) {

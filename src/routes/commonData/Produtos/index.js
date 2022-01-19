@@ -14,7 +14,6 @@ import {
 } from 'antd';
 import { Icon } from '@ant-design/compatible';
 import api from 'util/Api';
-import axios from 'axios';
 import history from 'util/history';
 import LeftListProd from './ListProducts';
 import SimpleReactValidator from 'simple-react-validator';

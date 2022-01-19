@@ -78,7 +78,7 @@ class ListOrdemProducao extends Component {
 
         this.state = {
             data: [],
-            skip: 0,
+            skip: 1,
             limit: 20,
             total: 0
         };
@@ -98,14 +98,14 @@ class ListOrdemProducao extends Component {
 
     fetchLeftList = () => {
         const {skip,limit} = this.state;
-        api.get(`${model}?sort=id%20desc`, {params: {
-            skip: skip,
+        api.get(`${model}`, {params: {
+            page: skip,
             limit: limit
           }})
         .then((result) => {
-            result.data.sort((a,b) => (a.id > b.id ? -1 : 1) );
+            result.data.data.sort((a,b) => (a.id > b.id ? -1 : 1) );
             this.setState({
-                data: result.data
+                data: result.data.data
             });
         },)
         .catch(function(error) {
@@ -115,17 +115,25 @@ class ListOrdemProducao extends Component {
 
     change = (pagination) => {
         // pagination.current, pagination.pageSize
-        if(pagination.current === 1){
-            this.setState({
-            skip: 0, 
-          });
+        // if(pagination.current === 1){
+        //     this.setState({
+        //     skip: 0, 
+        //   });
           
-        }else{
-          let ax = parseInt(pagination.current) * 10
+        // }else{
+        //   let ax = parseInt(pagination.current) * 10
+        //   this.setState({
+        //     skip: ax, 
+        //   });
+        // }
+
+        // this.fetchLeftList();
+
+        
           this.setState({
-            skip: ax, 
+            skip: pagination.current, 
           });
-        }
+        
 
         this.fetchLeftList();
       }
@@ -133,10 +141,10 @@ class ListOrdemProducao extends Component {
 
     getTotal = () => {
         api
-        .get(`${model}/getTotal`, {})
+        .get(`${model}/api/getTotal`, {})
         .then((result) => {
           this.setState({
-            total: result.data.count,
+            total: result.data[0].count,
           });
         })
         .catch(function (error) {
