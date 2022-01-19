@@ -10,9 +10,9 @@ export default class SubGrupoMatriz extends Component {
   componentDidMount() {
     // const { tipo } = this.props;
     api
-      .get(`subgrupomatriz/?sort=id ASC`)
+      .get(`subgrupomatriz`)
       .then((result) => {
-        this.setState({ itens: result.data });
+        this.setState({ itens: result.data.data });
       })
       .catch(function (error) {})
       .then(() => {

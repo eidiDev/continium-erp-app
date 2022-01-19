@@ -11,9 +11,9 @@ export default class MatrizCalculoCilindro extends Component {
     const { tipo } = this.props;
     console.log(tipo);
     api
-      .get(`matrizcalculocilindro/?tipo=${tipo}&sort=id ASC`)
+      .get(`matrizcalculocilindro`)
       .then((result) => {
-        this.setState({ itens: result.data });
+        this.setState({ itens: result.data.data });
       })
       .catch(function (error) {})
       .then(() => {

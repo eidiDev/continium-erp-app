@@ -29,10 +29,10 @@ class AddEtapa extends React.Component {
     };
 
     api
-      .get(`stepprocess/?sort=cod`, {})
+      .get(`stepprocess/`, {})
       .then((result) => {
         this.setState({
-          listofEtapas: result.data,
+          listofEtapas: result.data.data,
         });
       })
       .catch(function (error) {

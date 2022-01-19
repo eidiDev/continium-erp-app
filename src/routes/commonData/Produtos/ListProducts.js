@@ -68,13 +68,11 @@ class ListProducts extends Component {
   fetchLeftList = () => {
     const {skip,limit} = this.state;
     api
-      .get(`${model}/`, {params: {
-        skip: skip,
-        limit: limit
-      }})
+      .get(`${model}/`, {})
       .then((result) => {
+        console.log(result)
         this.setState({
-          data: result.data,
+          data: result.data.data,
         });
       })
       .catch(function (error) {

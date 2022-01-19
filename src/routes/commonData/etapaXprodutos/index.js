@@ -168,7 +168,7 @@ class etapaXprod extends Component {
       .get(`${model2}`, {})
       .then((result) => {
         let dataEstab = [];
-        dataEstab = result.data;
+        dataEstab = result.data.data;
 
         this.setState({
           listofEstabs: dataEstab,
@@ -188,10 +188,10 @@ class etapaXprod extends Component {
 
   getProd() {
     api
-      .get(`${model3}/?omit=listadefile,principalArch&limit=10000`, {})
+      .get(`${model3}/`, {})
       .then((result) => {
         let dataProd = [];
-        dataProd = result.data;
+        dataProd = result.data.data;
 
         this.setState({
           listofProds: dataProd,
@@ -204,10 +204,10 @@ class etapaXprod extends Component {
 
   getEtapas() {
     api
-      .get(`${model4}/?sort=cod`, {})
+      .get(`${model4}`, {})
       .then((result) => {
         let dataProd = [];
-        dataProd = result.data;
+        dataProd = result.data.data;
 
         this.setState({
           listofEtapas: dataProd,

@@ -13,21 +13,27 @@ export default class DesenhoMatriz extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { tipo, subgrupomatriz, diametro } = this.props;
 
+    console.log(tipo, subgrupomatriz, diametro);
+
     if (prevProps.subgrupomatriz !== subgrupomatriz && diametro !== '0') {
       api
         .get(`subgrupomatriz/${subgrupomatriz}`)
         .then((result) => {
-          if (result.data.haste === null || result.data.camisa === null) {
+          console.log(result);
+          if (result.data.hasteObj === null || result.data.camisaObj === null) {
             return;
           }
           const idMatriz =
-            tipo === 1 ? result.data.haste.id : result.data.camisa.id;
+            tipo === 1 ? result.data.hasteObj.id : result.data.camisaObj.id;
           api
             .get(`matrizcalculocilindro/${idMatriz}`)
             .then((result) => {
+              console.log(result);
               const lista_return = result.data.items_matriz.filter((item) => {
                 return item.diametro === diametro;
               });
+
+              console.log(lista_return)
               this.setState({ itens: lista_return });
             })
             .catch(function (error) {

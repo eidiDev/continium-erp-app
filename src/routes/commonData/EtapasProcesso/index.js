@@ -79,7 +79,7 @@ class EstapasProcesso extends Component {
         })
         .then((result) => {
             let dataEstab = [];
-            dataEstab = result.data;
+            dataEstab = result.data.data;
             
             this.setState({
                 listofEstabs: dataEstab
@@ -98,7 +98,7 @@ class EstapasProcesso extends Component {
     }
 
     getMachineLabors = () => {
-        api.get(`${model3}/?limit=999`, {
+        api.get(`${model3}`, {
         })
         .then((result) => {
             let dataMachine = [];
@@ -106,7 +106,7 @@ class EstapasProcesso extends Component {
             let dataOperadores = [];
             let dataProgramadores = [];
             let dataMontagens = []
-            dataMachine = result.data;
+            dataMachine = result.data.data;
 
             dataMachine.forEach(element => {
                 if(element.type === "maquina"){

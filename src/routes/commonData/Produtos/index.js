@@ -14,7 +14,6 @@ import {
 } from 'antd';
 import { Icon } from '@ant-design/compatible';
 import api from 'util/Api';
-import apiLinux from 'util/ApiWindows'
 import axios from 'axios';
 import history from 'util/history';
 import LeftListProd from './ListProducts';
@@ -88,7 +87,7 @@ class Produtos extends Component {
       });
     }
     if (file.file.status === 'done') {
-      apiLinux
+      api
         .get('/updateSecondList', { params: this.state.produtos })
         .then((resposta) => {
           this.setState({ fileList: resposta.data[0] });
@@ -124,7 +123,7 @@ class Produtos extends Component {
 
     fmData.append('avatar', file);
     try {
-      await apiLinux.post(`/uploadAvatar/${this.state.produtos.id}`, fmData, config);
+      await api.post(`/uploadAvatar/${this.state.produtos.id}`, fmData, config);
 
       onSuccess('Ok');
       // console.log('server res: ', res);
@@ -156,7 +155,7 @@ class Produtos extends Component {
 
     fmData.append('arquivos', file);
     try {
-      await apiLinux.post(
+      await api.post(
         `/uploadManyFiles/${this.state.produtos.id}`,
         fmData,
         config
@@ -178,7 +177,7 @@ class Produtos extends Component {
       });
     }
     if (file.file.status === 'done') {
-      apiLinux
+      api
         .get('/updateMainFileList', { params: this.state.produtos })
         .then((resposta) => {
           this.setState({ filePrincipalList: resposta.data });
@@ -226,8 +225,8 @@ class Produtos extends Component {
     let newProd = this.state.produtos;
     if (event.target === undefined) {
       auxlist.map((b) => {
-        if (b.id === event) {
-          newProd['category'] = b.id;
+        if (b.cod === event) {
+          newProd['category'] = b.cod;
         }
         return '';
       });
@@ -291,10 +290,10 @@ class Produtos extends Component {
 
   getCategs() {
     api
-      .get(`${model2}/?sort=id ASC&limit=999`, {})
+      .get(`${model2}/`, {})
       .then((result) => {
         let dataCateg = [];
-        dataCateg = result.data;
+        dataCateg = result.data.data;
 
         this.setState({
           listofcateg: dataCateg,
@@ -431,8 +430,8 @@ class Produtos extends Component {
   handleDownload = async (file) => {
     console.log('file', file);
 
-    axios
-      .get(`http://192.168.153.130:1337/getFiles`, {
+    api
+      .get(`/getFiles`, {
         params: file,
       })
       .then((result) => {
@@ -456,7 +455,7 @@ class Produtos extends Component {
         filePrincipalList: [],
       });
     } else {
-      apiLinux
+      api
         .post('/removeFiles', { file: file, prod: id })
         .then((result) => {
           // console.log(result);
@@ -474,12 +473,12 @@ class Produtos extends Component {
         fileList: [],
       });
     } else {
-      apiLinux
-        .post('/removeFileOfSecondList', { file: file.file, prod: id })
+      api
+        .post('/removeFileOfSecondList', { file: file, prod: id })
         .then((result) => {
-          // console.log(result);
+           console.log(result);
           this.setState({
-            fileList: result.data,
+            fileList: result.data.listadefile,
           });
         })
         .catch((error) => {});
@@ -536,7 +535,7 @@ class Produtos extends Component {
                         >
                           {categs.map((b) => {
                             return (
-                              <Option key={b.id} value={b.id}>
+                              <Option key={b.cod} value={b.cod}>
                                 {b.cod} - {b.description}
                               </Option>
                             );
@@ -854,12 +853,12 @@ class Produtos extends Component {
   };
 
   setStateEdit = (model) => {
-    if (model.category !== null) {
-      model.category = model.category.id;
+    if (model.categoryObj !== null) {
+      model.categoryObj = model.category;
     }
 
-    if (model.subgrupomatriz !== null) {
-      model.subgrupomatriz = model.subgrupomatriz.id;
+    if (model.subgrupomatrizObj !== null) {
+      model.subgrupomatrizObj = model.subgrupomatriz;
     } else {
       model.subgrupomatriz = '';
     }

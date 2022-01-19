@@ -80,7 +80,7 @@ class MaquinaMaodeObra extends Component {
         })
         .then((result) => {
             let dataEstab = [];
-            dataEstab = result.data;
+            dataEstab = result.data.data;
             
             this.setState({
                 listofEstabs: dataEstab
@@ -96,7 +96,7 @@ class MaquinaMaodeObra extends Component {
         })
         .then((result) => {
             let dataEstab = [];
-            dataEstab = result.data;
+            dataEstab = result.data.data;
 
             
             let taxMaquinas = _.filter(dataEstab, {'tipo': 'maquina'})

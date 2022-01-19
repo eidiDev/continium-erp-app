@@ -29,7 +29,7 @@ const columns = [
                 }
             }
         },
-        render: text => <EllipsisTooltip title={text}>{text.toUpperCase()}</EllipsisTooltip>
+        render: text => <EllipsisTooltip title={text}>{text}</EllipsisTooltip>
     },
     {
         title: "Razao Social",
@@ -43,7 +43,7 @@ const columns = [
                 }
             }
         },
-        render: text => <EllipsisTooltip title={text}>{text.toUpperCase()}</EllipsisTooltip>
+        render: text => <EllipsisTooltip title={text}>{text}</EllipsisTooltip>
     },
     {
         title: 'CNPJ',
@@ -80,11 +80,12 @@ class CustomerList extends Component {
 
     fetchLeftList = () => {
         console.log('fecthLeftlist');
-        api.get(`${model}?limit=999`, {})
+        api.get(`${model}`, {})
         .then((result) => {
+            console.log(result);
             this.setState({
                 isLoaded: true,
-                data: result.data
+                data: result.data.data
             });
         },)
         .catch(function(error) {

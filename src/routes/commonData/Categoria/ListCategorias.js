@@ -8,8 +8,8 @@ import EllipsisTooltip from '../../../components/EllipsisTooltip';
 const columns = [
   {
     title: 'Código do grupo',
-    dataIndex: 'id',
-    key: 'id',
+    dataIndex: 'cod',
+    key: 'cod',
     //sortOrder: 'descend',
     render: (text) => text,
   },
@@ -65,13 +65,14 @@ class ListUsers extends Component {
   fetchLeftList = () => {
     console.log('fecthLeftlist');
     api
-      .get(`${model}/?sort=id ASC&limit=999&populate=false`, {})
+      .get(`${model}/`, {})
       .then((result) => {
         //   const lista = result.data.sort(function(a,b) {
         //     return a.cod < b.sequencia ? -1 : a.sequencia > b.sequencia ? 1 : 0;
         // });
+        console.log(result);
         this.setState({
-          data: result.data,
+          data: result.data.data,
         });
       })
       .catch(function (error) {

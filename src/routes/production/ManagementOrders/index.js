@@ -502,7 +502,7 @@ class ManagementOrder extends Component {
       .get(`orderProdMaquina/getOnlyMaquinas`, {})
       .then((result) => {
         let dataProd = [];
-        dataProd = result.data;
+        dataProd = result.data.data;
         // console.log(result.data);
 
         this.setState({
@@ -516,10 +516,10 @@ class ManagementOrder extends Component {
 
   getOrdens() {
     api
-      .get(`orderProd/?limit=10000`, {})
+      .get(`orderProd/`, {})
       .then((result) => {
         let dataProd = [];
-        dataProd = result.data;
+        dataProd = result.data.data;
 
         this.setState({
           listOrdens: dataProd,
@@ -532,10 +532,10 @@ class ManagementOrder extends Component {
 
   getProducts() {
     api
-      .get(`${model3}/?omit=listadefile,principalArch&limit=10000`, {})
+      .get(`${model3}/`, {})
       .then((result) => {
         let dataProd = [];
-        dataProd = result.data;
+        dataProd = result.data.data;
 
         this.setState({
           listofProds: dataProd,
@@ -551,7 +551,7 @@ class ManagementOrder extends Component {
       .get(`${model2}`, {})
       .then((result) => {
         let dataEstabs = [];
-        dataEstabs = result.data;
+        dataEstabs = result.data.data;
 
         this.setState({
           listofEstabs: dataEstabs,
@@ -564,10 +564,10 @@ class ManagementOrder extends Component {
 
   getPartner() {
     api
-      .get(`${model4}/?limit=999`, {})
+      .get(`${model4}`, {})
       .then((result) => {
         let dataCli = [];
-        dataCli = result.data;
+        dataCli = result.data.data;
 
         this.setState({
           listofPartner: dataCli,
@@ -580,10 +580,10 @@ class ManagementOrder extends Component {
 
   getCategs() {
     api
-      .get(`${model5}/?sort=id ASC`, {})
+      .get(`${model5}`, {})
       .then((result) => {
         let dataCateg = [];
-        dataCateg = result.data;
+        dataCateg = result.data.data;
         this.setState({
           listofcateg: dataCateg,
         });

@@ -458,10 +458,10 @@ function PedidoVen() {
 
   function getPart () {
     api
-    .get(`${model4}/?where={"name":{"contains":"KNAPP"}}`, {})
+    .get(`${model4}/`, {})
     .then((result) => {
       let dataCli = [];
-      dataCli = result.data;
+      dataCli = result.data.data;
 
       setListPartner(dataCli)
     })

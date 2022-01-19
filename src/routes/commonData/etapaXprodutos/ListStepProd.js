@@ -71,10 +71,10 @@ class listStepXprod extends Component {
 
     fetchLeftList = () => {
         console.log('fecthLeftlist');
-        api.get(`${model}/?limit=999`, {})
+        api.get(`${model}`, {})
         .then((result) => {
             this.setState({
-                data: result.data
+                data: result.data.data
             });
         },)
         .catch(function(error) {

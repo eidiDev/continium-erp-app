@@ -44,7 +44,7 @@ export default class List extends Component {
       .then((response) => {
         this.setState({
           isLoading: false,
-          data: response.data,
+          data: response.data.data,
         });
       })
       .catch((err) => {

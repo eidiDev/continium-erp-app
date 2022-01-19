@@ -20,8 +20,8 @@ import { Icon } from '@ant-design/compatible';
 import history from 'util/history';
 import locale from 'moment/locale/pt-br';
 import ListOrdemPro from './listOrdemProd';
-import api from 'util/ApiWindows';
-import apiLinux from 'util/ApiWindows'
+import api from 'util/Api';
+import apiLinux from 'util/Api'
 import apiAdonis from 'util/ApiAdonis'
 import EditRow from './EditRow';
 import { EditableCell } from './EditRow';
@@ -205,10 +205,10 @@ class ProdOrder extends Component {
 
   getProducts() {
     api
-      .get(`${model3}/?omit=listadefile&limit=10000`, {})
+      .get(`${model3}/`, {})
       .then((result) => {
         let dataProd = [];
-        dataProd = result.data;
+        dataProd = result.data.data;
 
         this.setState({
           listofProds: dataProd,
@@ -256,7 +256,7 @@ class ProdOrder extends Component {
       .get(`${model2}`, {})
       .then((result) => {
         let dataEstabs = [];
-        dataEstabs = result.data;
+        dataEstabs = result.data.data;
 
         this.setState({
           listofEstabs: dataEstabs,
@@ -269,10 +269,10 @@ class ProdOrder extends Component {
 
   getPartner() {
     api
-      .get(`${model4}/?limit=999`, {})
+      .get(`${model4}`, {})
       .then((result) => {
         let dataCli = [];
-        dataCli = result.data;
+        dataCli = result.data.data;
 
         this.setState({
           listofPartner: dataCli,
@@ -285,10 +285,10 @@ class ProdOrder extends Component {
 
   getMaquinaseMaodeObra() {
     api
-      .get('machinelabor/?limit=999', {})
+      .get('machinelabor/', {})
       .then((result) => {
         let dataCli = [];
-        dataCli = result.data;
+        dataCli = result.data.data;
         this.setState({
           listofMachines: dataCli,
         });

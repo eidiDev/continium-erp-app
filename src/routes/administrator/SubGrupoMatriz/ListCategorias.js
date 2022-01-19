@@ -68,7 +68,7 @@ class ListUsers extends Component {
       .get(`${model}/?sort=cod ASC&limit=999&populate=false`, {})
       .then((result) => {
         this.setState({
-          data: result.data,
+          data: result.data.data,
         });
       })
       .catch(function (error) {

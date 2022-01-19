@@ -71,10 +71,10 @@ class ListEstab extends Component {
 
     fetchLeftList = () => {
         console.log('fecthLeftlist');
-        api.get(`${model}/?sort=cod ASC&limit=999`, {})
+        api.get(`${model}/`, {})
         .then((result) => {
             this.setState({
-                data: result.data
+                data: result.data.data
             });
         },)
         .catch(function(error) {
