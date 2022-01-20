@@ -96,6 +96,9 @@
   "devDependencies": {
     "http-proxy-middleware": "^1.0.5"
   },
+  "resolutions": {
+    "graceful-fs": "4.2.4"
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
