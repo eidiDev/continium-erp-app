@@ -1,3 +1,3 @@
 module.exports = {
-  footerText: 'Maktor - Copyright Company Name © 2019',
+  footerText: 'Continium - Copyright Company Name © 2022',
 }

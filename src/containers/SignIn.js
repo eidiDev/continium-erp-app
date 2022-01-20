@@ -44,10 +44,10 @@ class SignIn extends React.Component {
               </div>
               
               <div className="gx-app-logo">
-              <img alt="example" src={require("assets/images/pneumax.png")}/>
+              {/* <img alt="example" src={require("assets/images/logo-header.4fe7d899.svg")}/> */}
               </div>
 
-              <img alt="example" src={require("assets/images/logoPMax.png")}/>
+              <img alt="example" src={require("assets/images/logo-header.4fe7d899.svg")}/>
             </div>
             <div className="gx-app-login-content">
               <Form onSubmit={this.handleSubmit} className="gx-signin-form gx-form-row0">

@@ -75,9 +75,9 @@ class InsideHeader extends Component {
                 />
               </div>
               <Link to="/" className="gx-d-block gx-d-lg-none gx-pointer gx-mr-xs-3 gx-pt-xs-1 gx-w-logo">
-                <img  style={{width: "190px"}} alt=""  src={require("assets/images/logoPMax.png")}/></Link>
+                <img  style={{width: "190px"}} alt=""  src={require("assets/images/logo-header.4fe7d899.svg")}/></Link>
               <Link to="/" className="gx-d-none gx-d-lg-block gx-pointer gx-mr-xs-5 gx-logo">
-                <img  style={{width: "190px"}} alt="" src={require("assets/images/logoPMax.png")}/></Link>
+                <img  style={{width: "190px"}} alt="" src={require("assets/images/logo-header.4fe7d899.svg")}/></Link>
 
               <div className="gx-header-horizontal-nav gx-header-horizontal-nav-curve gx-d-none gx-d-lg-block">
                 <HorizontalNav/>
@@ -113,10 +113,7 @@ class InsideHeader extends Component {
                   <span style={{color: "white"}}>{myjson}</span>
                 </li>                
 
-                <li className="gx-msg">
-                  <i className="flag flag-24 flag-it"/>
-                  <span className="gx-status gx-status-rtl gx-small gx-orange"/>
-                </li>
+             
 
 
                 <li className="gx-language">

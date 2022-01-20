@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: `http://localhost:3333/`,
+  baseURL: process.env.REACT_APP_API_URI ,
   // baseURL: `${process.env.REACT_APP_DB_URL}`,
     // baseURL: `https://corsanywheremaktor.herokuapp.com/https://pneumax-api.herokuapp.com/`,
   // baseURL: `https://pneumax-api.herokuapp.com/`,
