@@ -22,7 +22,7 @@ const columns = [
     },
     {
         title: 'Produto',
-        dataIndex:'product.cod',
+        dataIndex:'productObj.cod',
         key: 'product',
         width: 150,
         onCell: () => {

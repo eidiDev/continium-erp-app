@@ -9,7 +9,7 @@ import LeftList from 'components/LeftList';
 const columns = [
     {
         title: 'Codigo do Produto',
-        dataIndex:'product.cod',
+        dataIndex:'productObj.cod',
         key: 'product',
         width: 100,
         onCell: () => {
