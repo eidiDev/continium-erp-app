@@ -37,7 +37,7 @@ const columns = [
     },
     {
         title: 'Cliente',
-        dataIndex:'partner.name',
+        dataIndex:'partnerObj.name',
         key: 'partner',
         width: 150,
         onCell: () => {
