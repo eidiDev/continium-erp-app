@@ -27,7 +27,7 @@ const columns = [
 
   {
     title: 'Grupo',
-    dataIndex: 'category.description',
+    dataIndex: 'categoryObj.description',
     key: 'category',
     onCell: () => {
       return {

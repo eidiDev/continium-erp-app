@@ -76,7 +76,7 @@ class Categoria extends Component {
     });
     //Agora ele vai buscar o registro no servidor
     api
-      .get(`${model}/${record.id}`, {})
+      .get(`${model}/${record.cod}`, {})
       .then((result) => {
         //Caso consiga recuperar o model, ele atualiza a tela e para de carregar
         // console.log(result.data.adresses);
@@ -110,13 +110,13 @@ class Categoria extends Component {
         // record = Object.assign({},record)
       }
       // console.log('onHandleSaveButton', record);
-      const { id, description, obs, status, camisa, haste } = record;
+      const { cod, description, obs, status, camisa, haste } = record;
 
       api({
         method: METHOD,
         url: URL,
         data: {
-          id: id,
+          cod: cod,
           description: description,
           obs: obs,
           status: status,
@@ -276,14 +276,14 @@ class Categoria extends Component {
                         <Input
                           type="number"
                           pattern="[0-9]{10}"
-                          value={categ.id}
-                          name="id"
+                          value={categ.cod}
+                          name="cod"
                           disabled={this.state.isNew ? false : true}
                           onChange={this.handleChange}
                         />
                         {this.validator.message(
-                          'id',
-                          categ.id,
+                          'cod',
+                          categ.cod,
                           'required|string',
                           { className: 'text-danger' }
                         )}

@@ -109,7 +109,7 @@ class Customers extends Component {
                             name: record.name, 
                             lastname: record.lastname,
                             cnpj: record.cnpj,
-                            razaosocial: record.razaosocial,
+                            razao_social: record.razao_social,
                             tipo: record.tipo,
                             adresses: record.adresses
                         }

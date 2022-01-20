@@ -243,9 +243,9 @@ class CustomerForm extends Component {
                                             <Form.Item label="Razão social">
                                                 <Input 
                                                     type="text" 
-                                                    name="razaosocial"
+                                                    name="razao_social"
                                                     onChange={this.handleChange}
-                                                    value={this.props.model.razaosocial}
+                                                    value={this.props.model.razao_social}
                                                 />
                                             </Form.Item>
                                         </div>

@@ -33,8 +33,8 @@ const columns = [
     },
     {
         title: "Razao Social",
-        dataIndex:'razaosocial',
-        key: 'razaosocial',
+        dataIndex:'razao_social',
+        key: 'razao_social',
         onCell: () => {
             return {
                 style: {

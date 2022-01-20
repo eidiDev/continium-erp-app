@@ -356,7 +356,7 @@ class MaquinaMaodeObra extends Component {
     //Seta o estado para edição
     setStateEdit = (model) => {
         console.log(model);
-        model.establishments = model.establishments.id;
+        model.establishments = model.establishments;
         this.setState({ 
             canSave: true,
             canNew: true,
