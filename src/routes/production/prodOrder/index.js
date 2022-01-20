@@ -211,7 +211,7 @@ class ProdOrder extends Component {
         dataProd = result.data.data;
 
         this.setState({
-          listofProds: dataProd,
+          listProdsOfOrderProd: dataProd,
         });
       })
       .catch(function (error) {
@@ -315,8 +315,8 @@ class ProdOrder extends Component {
         parent.checkMachinesOnOrderProdmaq();
       })
       .catch(function (error) {
-        // console.log(error);
-        message.error('Erro ao buscar registro, tente novamente mais tarde!');
+         console.log(error);
+        message.error('Erro ao buscar registro, tente novamente mais tarde! AQUIII');
         parent.setStateNew();
       });
   };
@@ -366,7 +366,7 @@ class ProdOrder extends Component {
         pedidoCliente,
         prioridade,
       } = record;
-      apiAdonis({
+      api({
         method: METHOD,
         url: URL,
         data: {
@@ -385,24 +385,23 @@ class ProdOrder extends Component {
           unity: unity,
           components: components,
           etapas: etapas,
-          filhosdoProduto: filhos,
           status: status,
         },
       })
         .then((result) => {
           //Caso consiga recuperar o model, ele atualiza a tela e para de carregar
-          let idEstab = result.data.establishments;
-          let idProduct = result.data.product;
-          let idPartner = result.data.partner;
-          result.data.establishments = {
-            id: idEstab,
-          };
-          result.data.product = {
-            id: idProduct,
-          };
-          result.data.partner = {
-            id: idPartner,
-          };
+          // let idEstab = result.data.establishments;
+          // let idProduct = result.data.product;
+          // let idPartner = result.data.partner;
+          // result.data.establishments = {
+          //   id: idEstab,
+          // };
+          // result.data.product = {
+          //   id: idProduct,
+          // };
+          // result.data.partner = {
+          //   id: idPartner,
+          // };
 
           message.success('Ordem salva com sucesso!');
           parent.setStateEdit(result.data);
@@ -534,17 +533,18 @@ class ProdOrder extends Component {
     this.getForOrderProd();
   };
   //Seta o estado para edição
-  setStateEdit = (model) => {
+  setStateEdit = (modelObject) => {
+    const model = modelObject instanceof Array ? modelObject[0] : modelObject 
     console.log(model);
     let dataAux = moment(model.dataProd, 'DD-MM-YYYY');
     let dataEntrega = moment(model.dataEntrega, 'DD-MM-YYYY');
 
-    model['establishment'] = model.establishments.id;
-    model['image'] = model.product.principalArch;
-    model['product_cod'] = model.product.cod;
-    model['product'] = model.product.id;
+    model['establishment'] = model.establishments ;
+    model['image'] = model.productObj.principalArch;
+    model['product_cod'] = model.productObj.cod;
+    model['product'] = model.productObj.id;
 
-    model['partner'] = model.partner.id;
+    model['partner'] = model.partnerObj.id;
     let etapas;
 
     if (model.maquinas === undefined) {
@@ -586,7 +586,7 @@ class ProdOrder extends Component {
       tableComp: model.components,
       tableSteps: etapas,
       apontamentos: model.apontamentos,
-      dataKitArvore: model.filhosdoProduto,
+      //dataKitArvore: model.filhosdoProduto,
     });
 
     this.atualizaQtdeProduzidaApontamentos(model);
@@ -598,9 +598,19 @@ class ProdOrder extends Component {
   getApontamentos = async (orderProdId) => {
     try {
       await api
-        .get(`noteprod?orderProd=${orderProdId}`)
+        .get(`noteprod`, {
+          params: {
+            params: [
+              {
+                field: 'orderProd',
+                value: orderProdId,
+                op: '=',
+              },
+            ],
+          },
+        })
         .then((result) => {
-          let apontamentos = result.data;
+          let apontamentos = result.data.data;
 
           this.setState({ apontamentos });
         })
@@ -690,46 +700,46 @@ class ProdOrder extends Component {
         newProdOrder['product'] = obj.id;
         newProdOrder['description'] = obj.description1;
         newProdOrder['unity'] = obj.unity;
-        if (obj.kit.length === 0) {
+        if (obj.kit) {
           newProdOrder['qtdebase'] = 0;
         } else {
-          newProdOrder['qtdebase'] = obj.kit[0].qtdebase;
+          newProdOrder['qtdebase'] = obj.kit.qtdebase;
         }
         let compJSON = JSON.stringify(obj.kit);
-        let stepsJSON = JSON.stringify(obj.stepXprod);
+        //let stepsJSON = JSON.stringify(obj.stepXprod);
 
-        let comp = JSON.parse(compJSON);
-        let step = JSON.parse(stepsJSON);
+        let comp = obj.kit;
+        let step = obj.stepXprod;
 
         this.setState({
           productOrder: newProdOrder,
         });
 
-        if (comp.length === 0) {
+        if (!comp) {
           this.setState({
             tableComp: [],
           });
         } else {
           this.setState({
-            tableComp: comp[0].products,
+            tableComp: comp.products,
           });
           this.setState({
-            tableCompFixa: comp[0].products,
+            tableCompFixa: comp.products,
           });
-          tableCompAux = obj.kit[0].products;
+          tableCompAux = obj.kit.products;
         }
 
-        if (step.length === 0) {
+        if (!step) {
           this.setState({
             tableSteps: [],
           });
         } else {
-          for (const priority of step[0].steps) {
+          for (const priority of step.steps) {
             priority.statusEtapa = '';
           }
 
           this.setState({
-            tableSteps: step[0].steps,
+            tableSteps: step.steps,
           });
         }
       }

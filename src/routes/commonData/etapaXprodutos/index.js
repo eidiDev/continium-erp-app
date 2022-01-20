@@ -20,7 +20,7 @@ import RightList from '../../../components/RightList';
 import api from '../../../util/Api';
 
 const { Option } = Select;
-const model = 'stepXprod';
+const model = 'stepxprod';
 const model2 = 'establishment';
 const model3 = 'product';
 const model4 = 'stepprocess';
@@ -275,6 +275,8 @@ class etapaXprod extends Component {
           descriptionStep,
         } = record;
 
+        console.log(establishment);
+
         api({
           method: METHOD,
           url: URL,
@@ -290,12 +292,12 @@ class etapaXprod extends Component {
           .then((result) => {
             //Caso consiga recuperar o model, ele atualiza a tela e para de carregar
             message.success('Etapa salva com sucesso!');
-            // console.log(result.data);
+            console.log(result.data);
             parent.setStateEdit(result.data);
             parent.leftListChild.current.fetchLeftList();
           })
           .catch(function (error) {
-            // console.log(error);
+             console.log(error);
             parent.setStateEdit(record);
             message.error(
               'Erro ao gravar registro, tente novamente mais tarde!'
@@ -389,8 +391,8 @@ class etapaXprod extends Component {
   //Seta o estado para edição
   setStateEdit = (model) => {
     console.log(model);
-    model.establishment = model.establishment.id;
-    model.product = model.product.id;
+    model.establishment = model.establishment ? model.establishment : null ;
+    model.product = model.product;
 
     this.setState({
       canSave: true,

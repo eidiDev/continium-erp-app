@@ -145,11 +145,11 @@ class EditableCell extends React.Component {
     }
 
     getProducts(){
-    api.get(`${model2}/?omit=listadefile,principalArch&limit=999`, {
+    api.get(`${model2}/`, {
     })
     .then((result) => {
         let dataProd = [];
-        dataProd = result.data;
+        dataProd = result.data.data;
         
         this.setState({
             listofProd: dataProd
@@ -725,12 +725,11 @@ class KitProdutos extends Component {
     // }
 
     getProds(){
-      api.get(`${model2}/?omit=listadefile,principalArch&limit=999`, {
+      api.get(`${model2}`, {
       })
       .then((result) => {
-        console.log(result.data);
           let dataprod = [];
-          dataprod = result.data;
+          dataprod = result.data.data;
           
           this.setState({
               listofProds: dataprod
@@ -894,7 +893,8 @@ class KitProdutos extends Component {
 
     //Seta o estado para edição
     setStateEdit = (model) => {
-        console.log(model);
+        
+        model.product = model.productObj;
         isNovo = false;
         getSpeProds = model.products;
         arrayofProd = model.products;
