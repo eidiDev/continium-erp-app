@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getToken } from './auth';
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URI ,
@@ -10,6 +11,20 @@ const api = axios.create({
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods':'GET, PUT, POST, DELETE, OPTIONS'
   }
+});
+
+api.interceptors.request.use(async (config) => {
+  let token = getToken();
+  token = JSON.parse(token);
+
+  // if (token) {
+  //   token = JSON.parse(token);
+  // }
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 //Para interceptar todas as requisiçoes

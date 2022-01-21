@@ -100,7 +100,7 @@ class UsersExpert extends Component {
             if(parent.state.isNew){
                 METHOD = 'POST'
                 // URL = `${model}`
-                URL = `${"api/users"}`
+                URL = `${"register"}`
 
                 
                 // record = Object.assign({},record)

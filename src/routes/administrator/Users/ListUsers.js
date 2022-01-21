@@ -50,7 +50,7 @@ class ListUsers extends Component {
         api.get(`${model}/`, {})
         .then((result) => {
             this.setState({
-                data: result.data
+                data: result.data.data
             });
         },)
         .catch(function(error) {
