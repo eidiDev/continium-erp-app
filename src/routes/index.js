@@ -30,17 +30,17 @@ const App = ({ match }) => {
   let token = localStorage.getItem('token');
   useEffect(() => {
     const fetchData = async () => {
-      const result = await api.get('api/user', {
+      const result = await api.post('getUserSession', {
         headers: { 'access-token': `Bearer ${token}` },
       });
-      // console.log(result);
-      setData(result.data.user);
+       console.log(result);
+      setData(result.data);
     };
 
     fetchData();
   }, []);
 
-  // console.log(data);
+   console.log(data);
   return (
     <div className="gx-main-content-wrapper">
       <Switch>
@@ -146,7 +146,7 @@ const App = ({ match }) => {
           path={`${match.url}commondata/estabelecimento`}
           component={Estabelecimento}
         />
-        {data ? (
+        {data.role === 'admin' ? (
           <Route path={`${match.url}administrator`} component={Administrator} />
         ) : (
           // <Route path={`${match.url}administrator/matrizCalculoCilindro`} component={MatrizCalculoCilindro}/>

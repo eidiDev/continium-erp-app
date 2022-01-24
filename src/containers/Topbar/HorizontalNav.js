@@ -28,11 +28,11 @@ class HorizontalNav extends Component {
     // { headers: {"access-token" : `Bearer ${token}`}
 
     api
-      .get(`api/user`, { headers: { 'access-token': `Bearer ${token}` } })
+      .post(`getUserSession`, { headers: { 'access-token': `Bearer ${token}` } })
       .then((result) => {
         let dataUser = [];
-        // console.log(result);
-        dataUser = result.data.user;
+         console.log(result);
+        dataUser = result.data;
         if (this.state.user)
           this.setState({
             user: dataUser,
@@ -69,14 +69,14 @@ class HorizontalNav extends Component {
     // let role = localStorage.getItem('role');
     // let myJson = JSON.parse(role);
     const usuario = this.state.user;
-    // console.log(usuario);
+     console.log(usuario);
     return (
       <Menu
         defaultOpenKeys={[defaultOpenKeys]}
         selectedKeys={[selectedKeys]}
         mode="horizontal"
       >
-        {usuario ? (
+        {usuario.role === 'admin' ? (
           <SubMenu
             key="administrator"
             className="gx-menu-horizontal"
