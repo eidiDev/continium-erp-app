@@ -153,6 +153,17 @@ class CadDashboardsexpert extends Component {
 
   onHandleClickSave = () => {
     // console.log(this.state.model);
+
+    let isok = 0;
+    var pwd = prompt("Para alterar o valor é necessário a senha.");
+    if(pwd != null && pwd === 'COTINIUMERP@') {
+        isok = 1;
+    }else {
+        message.error('Senha incorreta!');
+    }
+    
+    if(!isok) { return };
+
     let record = this.state.user;
     var parent = this;
 
@@ -203,6 +214,16 @@ class CadDashboardsexpert extends Component {
 
   onHandleClickDelete = () => {
     // console.log(this.state.model);
+    let isok = 0;
+    var pwd = prompt("Para alterar o valor é necessário a senha.");
+    if(pwd != null && pwd === 'COTINIUMERP@') {
+        isok = 1;
+    }else {
+        message.error('Senha incorreta!');
+    }
+    
+    if(!isok) { return };
+
     let record = this.state.user;
     var parent = this;
 

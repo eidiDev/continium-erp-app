@@ -21,7 +21,7 @@ class MaquinaMaodeObra extends Component {
             loader: true,
 			machine: {
                 establishments: 1,
-                rateTimeRelation: {
+                rateTimeRelations: {
                     id: '',
                     cod: '',
                     valor: '',
@@ -172,8 +172,8 @@ class MaquinaMaodeObra extends Component {
                             // record = Object.assign({},record)
                         }
                         
-                        const {cod, name, establishments, passwordappoitment, ratetime, type, programador,operador,montagem, rateTimeRelation, controle, maquina } = record;
-                        let auxRateTimeRelation = rateTimeRelation;
+                        const {cod, name, establishments, passwordappoitment, ratetime, type, programador,operador,montagem, rateTimeRelations, controle, maquina } = record;
+                        let auxRateTimeRelation = rateTimeRelations;
 
                         if(auxRateTimeRelation === null) {
                             auxRateTimeRelation = {
@@ -233,8 +233,8 @@ class MaquinaMaodeObra extends Component {
                     // record = Object.assign({},record)
                 }
                 
-                const {cod, name, establishments, passwordappoitment, ratetime, type, programador,operador,montagem, rateTimeRelation, controle, maquina } = record;
-                let auxRateTimeRelation = rateTimeRelation;
+                const {cod, name, establishments, passwordappoitment, ratetime, type, programador,operador,montagem, rateTimeRelations, controle, maquina } = record;
+                let auxRateTimeRelation = rateTimeRelations;
 
                 if(auxRateTimeRelation === null) {
                     auxRateTimeRelation = {
@@ -342,7 +342,7 @@ class MaquinaMaodeObra extends Component {
             canDelete: false,
             machine: {
                 establishments: 1,
-                rateTimeRelation: {
+                rateTimeRelations: {
                     id: '',
                     cod: '',
                     valor: '',
@@ -415,8 +415,8 @@ class MaquinaMaodeObra extends Component {
     handleTaxaHora = (event) => {
         console.log(event);
         let newMachine = this.state.machine;
-        if(newMachine.rateTimeRelation === null){
-            newMachine["rateTimeRelation"] = {
+        if(newMachine.rateTimeRelations === null){
+            newMachine["rateTimeRelations"] = {
                 cod: '',
                 id: '',
                 tipo: '',
@@ -426,8 +426,8 @@ class MaquinaMaodeObra extends Component {
 
         for (const iterator of this.state.listofTaxaMaquinas) {
             if(iterator.id === event){
-                newMachine.rateTimeRelation.valor = iterator.valor
-                newMachine.rateTimeRelation.id = iterator.id
+                newMachine.rateTimeRelations.valor = iterator.valor
+                newMachine.rateTimeRelations.id = iterator.id
                 this.setState({
                     machine: newMachine
                 });
@@ -438,8 +438,8 @@ class MaquinaMaodeObra extends Component {
     handleTaxaHoraMtg = (event) => {
         console.log(event);
         let newMachine = this.state.machine;
-        if(newMachine.rateTimeRelation === null){
-            newMachine["rateTimeRelation"] = {
+        if(newMachine.rateTimeRelations === null){
+            newMachine["rateTimeRelations"] = {
                 cod: '',
                 id: '',
                 tipo: '',
@@ -449,8 +449,8 @@ class MaquinaMaodeObra extends Component {
 
         for (const iterator of this.state.listofTaxaMontagens) {
             if(iterator.id === event){
-                newMachine.rateTimeRelation.valor = iterator.valor;
-                newMachine.rateTimeRelation.id = iterator.id
+                newMachine.rateTimeRelations.valor = iterator.valor;
+                newMachine.rateTimeRelations.id = iterator.id
                 this.setState({
                     machine: newMachine
                 });
@@ -576,7 +576,7 @@ class MaquinaMaodeObra extends Component {
                                     <div className="gx-form-row0">
                                         <Form.Item label="Taxa Hora">
                                             <Select 
-                                                value={machine.rateTimeRelation === null ? "" : machine.rateTimeRelation.id} 
+                                                value={machine.rateTimeRelations === null ? "" : machine.rateTimeRelations.id} 
                                                 onChange={this.handleTaxaHora} 
                                                 style={{ width: 250 }} 
                                             >
@@ -597,7 +597,7 @@ class MaquinaMaodeObra extends Component {
                                             <Input 
                                                 type="number" 
                                                 disabled={true}
-                                                value={machine.rateTimeRelation === null ? machine.ratetime : machine.rateTimeRelation.valor} 
+                                                value={machine.rateTimeRelations === null ? machine.ratetime : machine.rateTimeRelations.valor} 
                                                 name="ratetime"
                                                 onChange={this.handleChange}
                                             />
@@ -615,7 +615,7 @@ class MaquinaMaodeObra extends Component {
                                     <div className="gx-form-row0">
                                         <Form.Item label="Taxa Hora">
                                             <Select 
-                                                value={machine.rateTimeRelation === null ? "" : machine.rateTimeRelation.id } 
+                                                value={machine.rateTimeRelations === null ? "" : machine.rateTimeRelations.id } 
                                                 onChange={this.handleTaxaHoraMtg} 
                                                 style={{ width: 250 }} 
                                             >
@@ -637,7 +637,7 @@ class MaquinaMaodeObra extends Component {
                                             <Input 
                                                 type="number" 
                                                 disabled={true}
-                                                value={machine.rateTimeRelation === null ? machine.ratetime :  machine.rateTimeRelation.valor} 
+                                                value={machine.rateTimeRelations === null ? machine.ratetime :  machine.rateTimeRelations.valor} 
                                                 name="ratetime"
                                                 onChange={this.handleChange}/>
                                         </Form.Item>

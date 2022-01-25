@@ -89,12 +89,12 @@ class HorizontalNav extends Component {
               </Link>
             </Menu.Item>
 
-		<Menu.Item key="stockUsers">
+		{/* <Menu.Item key="stockUsers">
               <Link to="/administrator/stockUsers">
                 <i className="icon icon-profile" />
                 Stock Usuarios
               </Link>
-            </Menu.Item>
+            </Menu.Item> */}
 
 		<Menu.Item key="cadTaxaHora">
               <Link to="/administrator/cadTaxaHora">
@@ -189,12 +189,12 @@ class HorizontalNav extends Component {
             </Link>
           </Menu.Item>
           
-         <Menu.Item key="importOrdersFox">
+         {/* <Menu.Item key="importOrdersFox">
               <Link to="/commondata/importOrdersFox">
                 <i className="icon icon-profile" />
                 Importar Ordens Fox
               </Link>
-         </Menu.Item>
+         </Menu.Item> */}
         </SubMenu>
 
         <SubMenu
@@ -216,12 +216,12 @@ class HorizontalNav extends Component {
             </Link>
           </Menu.Item>
 
-          <Menu.Item key="gerenciamentoPrioridades">
+          {/* <Menu.Item key="gerenciamentoPrioridades">
             <Link to="/production/gerenciamentoPrioridades">
               <i className="icon icon-orders" />
               Gerenciamento de Prioridades
             </Link>
-          </Menu.Item>
+          </Menu.Item> */}
 
           <Menu.Item key="gerenPrioridades">
             <Link to="/production/gerenPrioridade">

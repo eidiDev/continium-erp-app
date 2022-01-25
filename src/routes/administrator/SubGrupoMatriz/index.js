@@ -81,6 +81,16 @@ class SubGrupoMatriz extends Component {
   };
 
   onHandleClickSave = () => {
+    let isok = 0;
+    var pwd = prompt("Para alterar o valor é necessário a senha.");
+    if(pwd != null && pwd === 'COTINIUMERP@') {
+        isok = 1;
+    }else {
+        message.error('Senha incorreta!');
+    }
+    
+    if(!isok) { return };
+
     if (this.validator.allValid()) {
       let record = this.state.categ;
       var parent = this;
@@ -149,6 +159,16 @@ class SubGrupoMatriz extends Component {
     // console.log(this.state.model);
     let record = this.state.categ;
     var parent = this;
+
+    let isok = 0;
+    var pwd = prompt("Para alterar o valor é necessário a senha.");
+    if(pwd != null && pwd === 'COTINIUMERP@') {
+        isok = 1;
+    }else {
+        message.error('Senha incorreta!');
+    }
+    
+    if(!isok) { return };
 
     Modal.confirm({
       title: 'Tem certeza que deseja excluir esse registro?',
