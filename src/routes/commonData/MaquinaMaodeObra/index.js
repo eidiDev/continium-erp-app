@@ -172,7 +172,7 @@ class MaquinaMaodeObra extends Component {
                             // record = Object.assign({},record)
                         }
                         
-                        const {cod, name, establishments, passwordappoitment, ratetime, type, programador,operador,montagem, rateTimeRelation, controle } = record;
+                        const {cod, name, establishments, passwordappoitment, ratetime, type, programador,operador,montagem, rateTimeRelation, controle, maquina } = record;
                         let auxRateTimeRelation = rateTimeRelation;
 
                         if(auxRateTimeRelation === null) {
@@ -192,6 +192,7 @@ class MaquinaMaodeObra extends Component {
                             {
                                 cod: cod,
                                 name: name,
+                                maquina: maquina,
                                 establishments: establishments,
                                 passwordappoitment: passwordappoitment,
                                 ratetime: ratetime,
@@ -232,7 +233,7 @@ class MaquinaMaodeObra extends Component {
                     // record = Object.assign({},record)
                 }
                 
-                const {cod, name, establishments, passwordappoitment, ratetime, type, programador,operador,montagem, rateTimeRelation, controle } = record;
+                const {cod, name, establishments, passwordappoitment, ratetime, type, programador,operador,montagem, rateTimeRelation, controle, maquina } = record;
                 let auxRateTimeRelation = rateTimeRelation;
 
                 if(auxRateTimeRelation === null) {
@@ -252,6 +253,7 @@ class MaquinaMaodeObra extends Component {
                     {
                         cod: cod,
                         name: name,
+                        maquina: maquina,
                         establishments: establishments,
                         passwordappoitment: passwordappoitment,
                         ratetime: ratetime,

@@ -99,7 +99,7 @@ class CadDashboardsexpert extends Component {
         dataMaq = result.data.data;
 
         let taxMaquinas = _.filter(dataMaq, (o) => {
-          return o.type === 'maquina' || 'montagem';
+          return o.type === 'maquina' ||  o.type === 'montagem';
         });
         console.log(taxMaquinas);
         this.setState({
