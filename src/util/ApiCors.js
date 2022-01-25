@@ -1,17 +1,30 @@
 import axios from 'axios';
+import { getToken } from './auth';
 
-const apiCors = axios.create({
-	baseURL: `http://192.168.15.117:8080/http://192.168.15.117:3333/`,
-  //baseURL: `http://localhost:1337/`,
-  // baseURL: `http://192.168.0.3:1337/`,
-   //https://cors-anywhere.herokuapp.com
-  //  baseURL: `https://corsanywheremaktor.herokuapp.com/https://pneumax-api.herokuapp.com/`,
+const api = axios.create({
+  baseURL: process.env.REACT_APP_API_URI ,
+  // baseURL: `${process.env.REACT_APP_DB_URL}`,
+    // baseURL: `https://corsanywheremaktor.herokuapp.com/https://pneumax-api.herokuapp.com/`,
   // baseURL: `https://pneumax-api.herokuapp.com/`,
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods':'GET, PUT, POST, DELETE, OPTIONS'
   }
+});
+
+api.interceptors.request.use(async (config) => {
+  let token = getToken();
+  token = JSON.parse(token);
+
+  // if (token) {
+  //   token = JSON.parse(token);
+  // }
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 //Para interceptar todas as requisiçoes
@@ -23,4 +36,4 @@ const apiCors = axios.create({
     // return config;
 // })
 
-export default apiCors;
+export default api;
