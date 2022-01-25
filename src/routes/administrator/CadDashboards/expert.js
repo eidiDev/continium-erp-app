@@ -93,14 +93,15 @@ class CadDashboardsexpert extends Component {
 
   getMaquinas = () => {
     api
-      .get(`MachineLabor/?limit=999`, {})
+      .get(`MachineLabor`, {})
       .then((result) => {
         let dataMaq = [];
-        dataMaq = result.data;
+        dataMaq = result.data.data;
 
         let taxMaquinas = _.filter(dataMaq, (o) => {
           return o.type === 'maquina' || 'montagem';
         });
+        console.log(taxMaquinas);
         this.setState({
           listofMaquinas: taxMaquinas,
         });
