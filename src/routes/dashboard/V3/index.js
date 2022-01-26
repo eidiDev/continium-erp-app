@@ -296,7 +296,6 @@ class DashboardV3 extends React.Component {
     // machinesExecution = machinesExecution.slice(0,4);
 
 
-    console.log(machinesFreedom);
 
     let nextOrders = [];
     machinesFreedom.forEach((item) => {
@@ -316,7 +315,6 @@ class DashboardV3 extends React.Component {
 
       // socket.emit("getMachinesExec", mqs)
     }
-    
     // let machinesExecFirstCouple = machinesExecution.slice(0,2);
     // let machinesExecSecondCouple = machinesExecution.slice(2,4);
     // let showMaqs = this.state.showMaquinas;
