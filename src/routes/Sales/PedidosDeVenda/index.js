@@ -472,10 +472,10 @@ function PedidoVen() {
 
   function getOrders () {
     api
-    .get(`${model1}/?limit=10`, {})
+    .get(`${model1}/`, {})
     .then((result) => {
       let dataCli = [];
-      dataCli = result.data;
+      dataCli = result.data.data;
 
       setListOrders(dataCli)
     })
@@ -486,10 +486,10 @@ function PedidoVen() {
 
 function getProducts () {
     api
-    .get(`${model3}/?limit=10`, {})
+    .get(`${model3}/`, {})
     .then((result) => {
       let dataCli = [];
-      dataCli = result.data;
+      dataCli = result.data.data;
 
       setListProducts(dataCli)
     })

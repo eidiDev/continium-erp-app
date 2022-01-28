@@ -10,7 +10,7 @@ const apontamentoColumns = [
     },
     {
         title: 'Etapa',
-        dataIndex:'etapa.cod',
+        dataIndex:'etapaObj.cod',
         key: 'etapa'
     },
     {
@@ -34,7 +34,7 @@ const apontamentoColumns = [
     },
     {
         title: 'Colaborador',
-        dataIndex:'colaborador.cod',
+        dataIndex:'colaboradorObj.cod',
         key: 'colaborador'
     },
     {
