@@ -209,12 +209,12 @@ class HorizontalNav extends Component {
             </Link>
           </Menu.Item>
 
-          <Menu.Item key="explosiveOrder">
+          {/* <Menu.Item key="explosiveOrder">
             <Link to="/production/explosiveOrder">
               <i className="icon icon-orders" />
               Explosão Multi-Nível
             </Link>
-          </Menu.Item>
+          </Menu.Item> */}
 
           {/* <Menu.Item key="gerenciamentoPrioridades">
             <Link to="/production/gerenciamentoPrioridades">
