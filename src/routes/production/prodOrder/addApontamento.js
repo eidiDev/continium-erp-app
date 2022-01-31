@@ -83,7 +83,7 @@ class AddApontamento extends React.Component {
             </Col>
             <Col span={12}>
               <div className="gx-form-row0">
-                <Form.Item label="Mão de obra" required={true}>
+                <Form.Item label="Tipo de operação" required={true}>
                   <Select
                     style={{ width: '100%' }}
                     value={this.props.apontamento.tipo}
@@ -131,6 +131,7 @@ class AddApontamento extends React.Component {
                     defaultValue={moment()}
                     // value={this.props.apontamento.horainicio}
                     name="dataInicio"
+                    onOk={this.props.onChange('dataInicio')}
                     onChange={this.props.onChange('dataInicio')}
                   />
                   {/* {this.validator.message('establishments', orderPro.establishment, 'required|alpha_num',{ className: 'text-danger' })} */}
@@ -147,6 +148,7 @@ class AddApontamento extends React.Component {
                     defaultValue={moment()}
                     // value={this.props.apontamento.horafim}
                     name="dataFim"
+                    onChange={this.props.onChange('dataFim')}
                     onOk={this.props.onChange('dataFim')}
                   />
                   {/* {this.validator.message('establishments', orderPro.establishment, 'required|alpha_num',{ className: 'text-danger' })} */}

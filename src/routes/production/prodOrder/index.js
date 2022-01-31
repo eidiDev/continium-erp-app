@@ -177,7 +177,7 @@ class ProdOrder extends Component {
     this.getEstabs();
     this.getProducts();
     this.getPartner();
-    this.getForOrderProd();
+    //this.getForOrderProd();
     this.getMaquinaseMaodeObra();
   }
 
@@ -210,8 +210,9 @@ class ProdOrder extends Component {
         let dataProd = [];
         dataProd = result.data.data;
 
+        
         this.setState({
-          listProdsOfOrderProd: dataProd,
+          listProdsOfOrderProd: dataProd.filter(ord => ord.kit !== null),
         });
       })
       .catch(function (error) {
@@ -316,7 +317,7 @@ class ProdOrder extends Component {
       })
       .catch(function (error) {
          console.log(error);
-        message.error('Erro ao buscar registro, tente novamente mais tarde! AQUIII');
+        message.error('Erro ao buscar registro, tente novamente mais tarde!');
         parent.setStateNew();
       });
   };
@@ -530,7 +531,7 @@ class ProdOrder extends Component {
     });
 
     this.checkPrioridade();
-    this.getForOrderProd();
+    // this.getForOrderProd();
   };
   //Seta o estado para edição
   setStateEdit = (modelObject) => {
@@ -815,7 +816,7 @@ class ProdOrder extends Component {
       for (const co of tableaux) {
         for (const fix of tableInicial) {
           if (co.key === fix.key) {
-            co.qtde = (fix.qtde * parseInt(e.target.value)).toFixed(6);
+            co.qtde = (fix.qtde * parseInt(e.target.value));
           }
         }
       }
@@ -1072,6 +1073,7 @@ class ProdOrder extends Component {
         tempoRealizado: this.state.apontamento.tempoRealizado,
       };
 
+      console.log(apontamento);
       //Agora ele vai gravar no banco de dados.
       await api
         .post(`/createOnWeb/`, apontamento)
@@ -1941,7 +1943,15 @@ class ProdOrder extends Component {
                 showAddApontamento={this.state.modalAddApontamento}
                 onOk={() => this.onOkApontamento()}
                 onCancel={() =>
-                  this.setState({ modalAddApontamento: false, apontamento: [] })
+                  this.setState({ modalAddApontamento: false, apontamento: {
+                    id: '',
+                    etapa: '',
+                    tipo: '',
+                    colaborador: '',
+                    dataInicio: moment(),
+                    dataFim: moment(),
+                    qtdeApontada: 0,
+                  } })
                 }
                 onChange={this.handleChangeApontamento}
                 listofMachines={this.state.listofMachines}

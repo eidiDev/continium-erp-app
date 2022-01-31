@@ -9,7 +9,7 @@ const apontamentoColumns = [
         key: 'id'
     },
     {
-        title: 'Etapa',
+        title: 'Maquina',
         dataIndex:'etapaObj.cod',
         key: 'etapa'
     },
