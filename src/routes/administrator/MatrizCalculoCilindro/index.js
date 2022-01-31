@@ -151,15 +151,15 @@ class MatrizCalculoCilindro extends Component {
   }
 
   onHandleClickSave = () => {
-    let isok = 0;
-    var pwd = prompt("Para alterar o valor é necessário a senha.");
-    if(pwd != null && pwd === 'COTINIUMERP@') {
-        isok = 1;
-    }else {
-        message.error('Senha incorreta!');
-    }
+    // let isok = 0;
+    // var pwd = prompt("Para alterar o valor é necessário a senha.");
+    // if(pwd != null && pwd === 'COTINIUMERP@') {
+    //     isok = 1;
+    // }else {
+    //     message.error('Senha incorreta!');
+    // }
     
-    if(!isok) { return };
+    // if(!isok) { return };
 
     if (this.validator.allValid()) {
       let tabelalista = this.state.tableList;
@@ -226,15 +226,15 @@ class MatrizCalculoCilindro extends Component {
   onHandleClickDelete = () => {
     // console.log(this.state.model);
 
-    let isok = 0;
-    var pwd = prompt("Para alterar o valor é necessário a senha.");
-    if(pwd != null && pwd === 'COTINIUMERP@') {
-        isok = 1;
-    }else {
-        message.error('Senha incorreta!');
-    }
+    // let isok = 0;
+    // var pwd = prompt("Para alterar o valor é necessário a senha.");
+    // if(pwd != null && pwd === 'COTINIUMERP@') {
+    //     isok = 1;
+    // }else {
+    //     message.error('Senha incorreta!');
+    // }
     
-    if(!isok) { return };
+    // if(!isok) { return };
 
     console.log(this.state.record);
     let record = this.state.record;
