@@ -1073,7 +1073,6 @@ class ProdOrder extends Component {
         tempoRealizado: this.state.apontamento.tempoRealizado,
       };
 
-      console.log(apontamento);
       //Agora ele vai gravar no banco de dados.
       await api
         .post(`/createOnWeb/`, apontamento)

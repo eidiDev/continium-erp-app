@@ -90,7 +90,7 @@ class AddApontamento extends React.Component {
                     name="tipo"
                     onChange={this.props.onChange('tipo')}
                   >
-                    <Option value="">Selecione uma etapa</Option>
+                    <Option value="">Selecione uma operação</Option>
                     <Option value="pausar">Pausa</Option>
                     <Option value="programar">Programando</Option>
                     <Option value="operar">Operando</Option>
