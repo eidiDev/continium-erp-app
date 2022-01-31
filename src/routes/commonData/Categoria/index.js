@@ -171,7 +171,7 @@ class Categoria extends Component {
         setTimeout(function () {
           //Agora ele vai buscar o registro no servidor
           let METHOD = 'DELETE';
-          let URL = `${model}/${record.id}`;
+          let URL = `${model}/${record.cod}`;
           api({
             method: METHOD,
             url: URL,
