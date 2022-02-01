@@ -498,7 +498,7 @@ class Produtos extends Component {
                         <Input
                           type="text"
                           value={produtos.cod}
-                          disabled={this.state.isNew ? false : true}
+                          // disabled={this.state.isNew ? false : true}
                           name="cod"
                           onChange={this.handleChange}
                         />
