@@ -550,7 +550,7 @@ class Produtos extends Component {
                     </div>
                   </Col>
 
-                  <Col lg={6} md={6} sm={12} xs={24}>
+                  {/* <Col lg={6} md={6} sm={12} xs={24}>
                     <div className="gx-form-row0">
                       <SubGrupoMatriz
                         label="Sub grupo"
@@ -559,7 +559,9 @@ class Produtos extends Component {
                         onChange={this.handleSubGrupo}
                       />
                     </div>
-                  </Col>
+                  </Col> */}
+
+                  
                   <Col lg={12} md={12} sm={12} xs={24}>
                     <div className="gx-form-row0">
                       <Form.Item label="Descrição" required={true}>
@@ -728,7 +730,7 @@ class Produtos extends Component {
                   </Col>
                 </Row>
                 <Row>
-                  <Col lg={6} md={6} sm={12} xs={24}>
+                  {/* <Col lg={6} md={6} sm={12} xs={24}>
                     <div className="gx-form-row0">
                       <DesenhoMatriz
                         label="Desenho Haste"
@@ -827,7 +829,7 @@ class Produtos extends Component {
                         />
                       </Form.Item>
                     </div>
-                  </Col>
+                  </Col> */}
                   <Col lg={12} md={12} sm={24} xs={24}>
                     <div className="gx-form-row0">
                       <Form.Item label="Observação">

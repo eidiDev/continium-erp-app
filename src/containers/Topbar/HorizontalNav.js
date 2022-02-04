@@ -95,6 +95,12 @@ class HorizontalNav extends Component {
                 Stock Usuarios
               </Link>
             </Menu.Item> */}
+            <Menu.Item key="machineLab">
+          <Link to="/commondata/machineLab">
+            <i className="icon icon-profile" />
+            <IntlMessages id="commondata.machinelabor" />
+          </Link>
+        </Menu.Item>
 
 		<Menu.Item key="cadTaxaHora">
               <Link to="/administrator/cadTaxaHora">
@@ -110,7 +116,7 @@ class HorizontalNav extends Component {
               </Link>
             </Menu.Item>
 
-            <Menu.Item key="matrizCalculoCilindro">
+            {/* <Menu.Item key="matrizCalculoCilindro">
               <Link to="/administrator/matrizCalculoCilindro">
                 <i className="icon icon-profile" />
                 Matriz de Calculo de Camisa e Haste
@@ -122,7 +128,7 @@ class HorizontalNav extends Component {
                 <i className="icon icon-profile" />
                 Subgrupo de Matriz
               </Link>
-            </Menu.Item>
+            </Menu.Item> */}
           </SubMenu>
         ) : (
           ''
@@ -161,12 +167,7 @@ class HorizontalNav extends Component {
             </Link>
           </Menu.Item>
 
-          <Menu.Item key="machineLab">
-            <Link to="/commondata/machineLab">
-              <i className="icon icon-profile" />
-              <IntlMessages id="commondata.machinelabor" />
-            </Link>
-          </Menu.Item>
+        
 
           <Menu.Item key="kitprod">
             <Link to="/commondata/kitprod">
