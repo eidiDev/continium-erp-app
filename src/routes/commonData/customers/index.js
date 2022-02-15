@@ -6,6 +6,7 @@ import RightList from 'components/RightList';
 import IntlMessages from "util/IntlMessages";
 import api from 'util/Api';
 import SimpleReactValidator from 'simple-react-validator';
+import { Link } from 'react-router-dom';
 
 const model = 'partner';
 class Customers extends Component {
@@ -372,7 +373,12 @@ class Customers extends Component {
                                 <Icon type="upload" /> Upload de Clientes
                                 </Button>
                             </Upload>
+                            <br/>
+                            <Link to="/csvlink/exUploadPartner.csv" target="_blank" download> <Icon type="download" /> Exemplo de arquivo CSV</Link>
+                                
                             </center>
+
+
                          </Card>
                     </Col>
                 </Row>
