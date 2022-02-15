@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Row, Col, Spin, message, Modal} from 'antd';
+import {Row, Col, Spin, message, Modal, Button, Card, Upload, Icon} from 'antd';
 import CustomerForm from './customerForm';
 import CustomerList from './customersList';
 import RightList from 'components/RightList';
@@ -269,6 +269,59 @@ class Customers extends Component {
         }
     }
 
+    handleChangeUpload = (file, id) => {
+        if (file.file.status === 'uploading') {
+            this.setState({
+                loading:true,
+                loadingTip: 'Salvando registro, aguarde...',
+            })
+        }
+        if (file.file.status === 'done') {
+            this.setStateNew()
+            this.leftListChild.current.fetchLeftList()
+            message.success(`${file.file.name} Clientes salvos com Sucesso !`);
+        } else if (file.file.status === 'error') {
+            this.setStateNew()
+          if(!file.file.type.includes('csv')){
+            message.error(`${file.file.name} o sistema aceita somente CSV, tente novamente.`);
+          }else{
+            message.error(`${file.file.name} , erro ao fazer Upload, tente novamente.`);
+          }
+        }
+      };
+
+      customReq = async (options) => {
+        const { onSuccess, onError, file, onProgress } = options;
+    
+        const fmData = new FormData();
+    
+        const config = {
+          headers: { 'content-type': 'multipart/form-data' },
+          onUploadProgress: (event) => {
+            const percent = Math.floor((event.loaded / event.total) * 100);
+            this.setState({
+              progress: percent,
+            });
+            if (percent === 100) {
+              setTimeout(() => this.setState({ progress: 0 }), 1000);
+            }
+            onProgress({ percent: (event.loaded / event.total) * 100 });
+          },
+        };
+    
+        fmData.append('avatar', file);
+        try {
+          await api.post(`/uploadCliente`, fmData, config);
+    
+          onSuccess('Ok');
+          // console.log('server res: ', res);
+        } catch (err) {
+          console.log('Error: ', err);
+          const error = new Error('Some error');
+          onError({ error });
+        }
+      };
+
     render () {
         return (
             <Spin spinning={this.state.loading} tip={this.state.loadingTip}>
@@ -300,6 +353,27 @@ class Customers extends Component {
                             canSave={this.state.canSave}
                             canDelete={this.state.canDelete}
                         />
+                         <Card type="inner" title="Upload">
+                             <center>
+
+                             
+                            <Upload 
+                                customRequest={this.customReq}
+                                onChange={(file) =>
+                                    this.handleChangeUpload(
+                                      file
+                                    )
+                                  }
+                            >
+                                <Button
+                                      block
+                                      type="primary"
+                                >
+                                <Icon type="upload" /> Upload de Clientes
+                                </Button>
+                            </Upload>
+                            </center>
+                         </Card>
                     </Col>
                 </Row>
             </Spin>
