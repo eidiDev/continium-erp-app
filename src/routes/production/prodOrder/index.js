@@ -1328,7 +1328,7 @@ class ProdOrder extends Component {
         title: 'Tempo',
         dataIndex: 'tempoMaquina',
         key: 'tempoMaquina',
-        //editable: true,
+        editable: true,
       },
       {
         title: 'Programador',
@@ -1339,7 +1339,7 @@ class ProdOrder extends Component {
         title: 'Tempo',
         dataIndex: 'tempoProgramador',
         key: 'tempoProgramador',
-        //editable: true,
+        editable: true,
       },
       {
         title: 'Operador',
@@ -1350,7 +1350,7 @@ class ProdOrder extends Component {
         title: 'Tempo',
         dataIndex: 'tempoOperador',
         key: 'tempoOperador',
-        //editable: true,
+        editable: true,
       },
       {
         title: 'Montagem',
@@ -1380,7 +1380,7 @@ class ProdOrder extends Component {
         title: 'Tempo',
         dataIndex: 'tempoMontagem',
         key: 'tempoMontagem',
-        //editable: true,
+        editable: true,
       },
       {
         title: 'Ações',
