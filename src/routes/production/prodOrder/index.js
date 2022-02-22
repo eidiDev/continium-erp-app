@@ -878,9 +878,7 @@ class ProdOrder extends Component {
 
     if (order.apontamentos !== undefined) {
       order.apontamentos.forEach((item) => {
-        if (item.maquina === ultimaEtapa.maquina) {
           contadorQtdeProduzida += item.qtdeApontada;
-        }
       });
     }
 
