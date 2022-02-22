@@ -76,7 +76,7 @@ class Categoria extends Component {
     });
     //Agora ele vai buscar o registro no servidor
     api
-      .get(`${model}/${record.cod}`, {})
+      .get(`${model}/${record.id}`, {})
       .then((result) => {
         //Caso consiga recuperar o model, ele atualiza a tela e para de carregar
         // console.log(result.data.adresses);
@@ -171,7 +171,7 @@ class Categoria extends Component {
         setTimeout(function () {
           //Agora ele vai buscar o registro no servidor
           let METHOD = 'DELETE';
-          let URL = `${model}/${record.cod}`;
+          let URL = `${model}/${record.id}`;
           api({
             method: METHOD,
             url: URL,
@@ -274,11 +274,10 @@ class Categoria extends Component {
                     <div className="gx-form-row0">
                       <Form.Item label="Código" required={true}>
                         <Input
-                          type="number"
-                          pattern="[0-9]{10}"
+                          type="text"
                           value={categ.cod}
                           name="cod"
-                          disabled={this.state.isNew ? false : true}
+                          // disabled={this.state.isNew ? false : true}
                           onChange={this.handleChange}
                         />
                         {this.validator.message(
