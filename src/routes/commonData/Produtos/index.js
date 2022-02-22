@@ -224,8 +224,8 @@ class Produtos extends Component {
     let newProd = this.state.produtos;
     if (event.target === undefined) {
       auxlist.map((b) => {
-        if (b.cod === event) {
-          newProd['category'] = b.cod;
+        if (b.id === event) {
+          newProd['category'] = b.id;
         }
         return '';
       });
@@ -289,7 +289,17 @@ class Produtos extends Component {
 
   getCategs() {
     api
-      .get(`${model2}/`, {})
+      .get(`${model2}/`, {
+        params: {
+          params: [
+            {
+              field: 'status',
+              value: true,
+              op: '=',
+            },
+          ],
+        },
+      })
       .then((result) => {
         let dataCateg = [];
         dataCateg = result.data.data;
@@ -410,14 +420,13 @@ class Produtos extends Component {
         })
         .catch(function (error) {
           console.log(error);
-          if (error.response.data.code === 'E_UNIQUE') {
-            message.error('O sistema já contem um produto com este código');
+          if (error.response.data.error.status === 500) {
+            message.error('O sistema já contem um produto com este código, Tente Novamente');
           } else {
             message.error('Erro ao gravar registro, Tente Novamente');
           }
           parent.setStateNew();
 
-          message.error('erro');
         });
     } else {
       message.warning('Campos obrigatórios em branco!');
@@ -534,7 +543,7 @@ class Produtos extends Component {
                         >
                           {categs.map((b) => {
                             return (
-                              <Option key={b.cod} value={b.cod}>
+                              <Option key={b.id} value={b.id}>
                                 {b.cod} - {b.description}
                               </Option>
                             );
@@ -586,7 +595,7 @@ class Produtos extends Component {
               </Card>
               <Row style={{ marginRight: '-8px', paddingLeft: '7px' }}>
                 <Col span={12}>
-                  <Card type="inner" title="Imagem Principal">
+                  <Card type="inner" title="Arquivo Principal">
                     <Row>
                       <div className="clearfix">
                         <Upload
@@ -631,7 +640,7 @@ class Produtos extends Component {
                   </Card>
                 </Col>
                 <Col span={12}>
-                  <Card type="inner" title="Outras imagens">
+                  <Card type="inner" title="Outras Arquivos">
                     <Row>
                       <div className="clearfix">
                         <Upload
@@ -1029,9 +1038,9 @@ class Produtos extends Component {
                 Excluir
               </Button>
 
-              <Button block type="default" onClick={this.onCancel}>
+              {/* <Button block type="default" onClick={this.onCancel}>
                 Cancelar
-              </Button>
+              </Button> */}
             </Card>
           </Col>
         </Row>
