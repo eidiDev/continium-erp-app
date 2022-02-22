@@ -499,6 +499,72 @@ class EstapasProcesso extends Component {
 
     }
 
+    clearSelect = mode => {
+        let newStep = this.state.Step.generaldata;
+
+        switch (mode) {
+            
+            case "programador":
+                
+               
+                newStep["codProgramador"] = ''
+                newStep["descProgramador"] = ''
+                newStep["tempoProgramador"] = ''
+
+                this.setState({
+                    ...this.state.Step,
+                    generaldata: newStep 
+                })
+
+                break;
+            case "operador":
+               
+
+                newStep["codOperador"] = ''
+                newStep["descOperador"] = ''
+                newStep["tempoOperador"] = ''
+
+
+                console.log(newStep);
+                this.setState({
+                    ...this.state.Step,
+                    generaldata: newStep 
+                })
+                
+                break;
+            case "maquina":
+                
+
+                newStep["codMaquina"] = ''
+                newStep["descMaquina"] = ''
+                newStep["tempXqtdMaquina"] = ''
+
+                console.log(newStep);
+                this.setState({
+                    ...this.state.Step,
+                    generaldata: newStep 
+                })
+            
+                break;
+            case "montagem":
+               
+
+                newStep["codMontagem"] = ''
+                newStep["descMontagem"] = ''
+                newStep["tempoMontagem"] = ''
+
+                console.log(newStep);
+                this.setState({
+                    ...this.state.Step,
+                    generaldata: newStep 
+                })
+                
+                break;
+            default:
+                break;
+        }
+    }
+
     Content = (Step,estabs) => {
 
         let maquinas = this.state.listofMaquinas;
@@ -622,6 +688,19 @@ class EstapasProcesso extends Component {
                                                 name="tempXqtdMaquina"
                                                 onChange={this.handleChangeGeneral}/>
                                             </Form.Item>
+                                            
+                                        </div>
+                                    </Col>
+
+                                    <Col lg={7} md={6} sm={12} xs={24}>
+                                        <div className="gx-form-row0">
+                                        <Form.Item  label="">
+                                            <Button
+                                                    onClick={() => this.clearSelect("maquina")}
+                                            >
+                                                Limpar
+                                            </Button>
+                                        </Form.Item>
                                         </div>
                                     </Col>
                                 </Row>
@@ -672,7 +751,18 @@ class EstapasProcesso extends Component {
                                                 />
                                             </Form.Item>       
                                         </div>                                     
-                                    </Col>      
+                                    </Col>
+                                    <Col lg={7} md={6} sm={12} xs={24}>
+                                        <div className="gx-form-row0">
+                                        <Form.Item  label="">
+                                            <Button
+                                                    onClick={() => this.clearSelect("programador")}
+                                            >
+                                                Limpar
+                                            </Button>
+                                        </Form.Item>
+                                        </div>
+                                    </Col>
                                 </Row>
                             </Card>
                             <Card type="inner" title="Operador">
@@ -721,6 +811,18 @@ class EstapasProcesso extends Component {
                                             </Form.Item>
                                         </div>
                                     </Col>
+
+                                    <Col lg={7} md={6} sm={12} xs={24}>
+                                        <div className="gx-form-row0">
+                                        <Form.Item  label="">
+                                            <Button
+                                                    onClick={() => this.clearSelect("operador")}
+                                            >
+                                                Limpar
+                                            </Button>
+                                        </Form.Item>
+                                        </div>
+                                    </Col>
                                 </Row>
                             </Card>
                             <Card type="inner" title="Montagem">
@@ -767,6 +869,18 @@ class EstapasProcesso extends Component {
                                                     min={1}
                                                     onChange={this.handleChangeGeneral}/>
                                             </Form.Item>
+                                        </div>
+                                    </Col>
+
+                                    <Col lg={7} md={6} sm={12} xs={24}>
+                                        <div className="gx-form-row0">
+                                        <Form.Item  label="">
+                                            <Button
+                                                    onClick={() => this.clearSelect("montagem")}
+                                            >
+                                                Limpar
+                                            </Button>
+                                        </Form.Item>
                                         </div>
                                     </Col>
                                 </Row>
