@@ -905,29 +905,31 @@ class ProdOrder extends Component {
     objetOrder['tablesteps'] = this.state.tableSteps;
     objetOrder['tableComp'] = this.state.tableComp;
 
-    apiLinux
+    api
       .post('/create-pdf', objetOrder)
-      .then(() => apiLinux.get('/fetch-pdf', { responseType: 'blob' }))
+      .then(() => api.get('/fetch-pdf', {}))
       .then((res) => {
-        const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
 
-        saveAs(pdfBlob, `${this.state.productOrder.orderProduction}.pdf`);
+        window.open(res.request.responseURL);
+        // const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
+
+        // saveAs(pdfBlob, `${this.state.productOrder.orderProduction}.pdf`);
         this.setState({ loading: false });
 
         //Agora vai imprimir a imagem do produto principal
-        apiLinux
-          .get(`/getFiles`, {
-            params: this.state.productOrder.image,
-          })
-          .then((result) => {
-            // console.log(result.request);
-            // saveAs(result.request.responseURL);
-            window.open(result.request.responseURL);
-          })
-          .catch(function (error) {
-            console.log(error);
-            // message.error('Erro ao buscar registro, tente novamente mais tarde!');
-          });
+        // api
+        //   .get(`/getFiles`, {
+        //     params: this.state.productOrder.image,
+        //   })
+        //   .then((result) => {
+        //     // console.log(result.request);
+        //     // saveAs(result.request.responseURL);
+        //     window.open(result.request.responseURL);
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error);
+        //     // message.error('Erro ao buscar registro, tente novamente mais tarde!');
+        //   });
 
         // api
         //   .post('/create-pdf2', objetOrder)
@@ -1856,9 +1858,9 @@ class ProdOrder extends Component {
   render() {
     const menu = (
       <Menu>
-        <Menu.Item key="1" onClick={this.showModal}>
+        {/* <Menu.Item key="1" onClick={this.showModal}>
           Calc. Tempo e Custo
-        </Menu.Item>
+        </Menu.Item> */}
 
         <Menu.Item key="1" onClick={this.createAndDownloadPdf}>
           <i className="icon icon-long-arrow-down" />
