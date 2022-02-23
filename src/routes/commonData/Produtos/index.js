@@ -640,7 +640,7 @@ class Produtos extends Component {
                   </Card>
                 </Col>
                 <Col span={12}>
-                  <Card type="inner" title="Outras Arquivos">
+                  <Card type="inner" title="Outros Arquivos">
                     <Row>
                       <div className="clearfix">
                         <Upload

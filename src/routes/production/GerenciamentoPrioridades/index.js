@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Board from 'react-trello';
 import api from 'util/ApiAdonis';
 import randomColor from 'randomcolor';
-import { Form, Select, Spin, message, Button, Row, Col } from 'antd';
+import { Form, Select, Spin, message, Button, Row, Col , DatePicker} from 'antd';
+import locale from 'moment/locale/pt-br';
 class GerenciamentoPrioridades extends Component {
   constructor() {
     super();
@@ -10,6 +11,12 @@ class GerenciamentoPrioridades extends Component {
       loading: true,
       loadingTip: 'Salvando, aguarde...',
       idMaquina: '',
+      productOrder: {
+        dataProdIni: '',
+        dataProdFim: '',
+        dataEntregaIni: '',
+        dataEntregaFim: ''
+      },
       colors: [
         {
           id: 'MAQ-01',
@@ -111,14 +118,13 @@ class GerenciamentoPrioridades extends Component {
           },
         ],
       },
-      contador: 1
     };
     this.resetData();
   }
 
   getMaquinas = () => {
     api
-      .get(`MachineLabor/`, {})
+      .get(`MachineLabor`, {})
       .then((result) => {
         let dataMaq = [];
         dataMaq = result.data.data;
@@ -187,30 +193,37 @@ class GerenciamentoPrioridades extends Component {
 
   componentDidMount() {
     this.getMaquinas();
-    this.getPrioridades('');
+    this.getPrioridades('','inicio');
   }
 
-  getPrioridades = async (idMaquina, offset) => {
+  getPrioridades = async (idMaquina, flagInicio) => {
     this.resetData();
     if (!idMaquina || idMaquina === '') {
       this.setState({ loading: false });
+      if(flagInicio !== 'inicio'){
+        message.warning('Selecione uma Maquina')
+      }
       return null;
     } else {
-      const dataFromServer = await this.getDataFromServer(idMaquina, offset);
+      const dataFromServer = await this.getDataFromServer(idMaquina);
       await this.setState({ originalData: dataFromServer });
       this.addCardsOnBorder(dataFromServer);
       this.setState({ loading: false });
     }
   };
 
-  getDataFromServer = async (idMaquina,offset) => {
+  getDataFromServer = async (idMaquina) => {
     let dataToReturn = {};
-
-    const params = {
-      offset
-    }
     await api
-      .get(`/prioridade?idMaquina=${idMaquina}`, {params})
+      .get(`/prioridade`, {
+        params: {
+          idMaquina,
+          dataProdIni: this.state.productOrder.dataProdIni,
+          dataProdFim: this.state.productOrder.dataProdFim,
+          dataEntregaIni: this.state.productOrder.dataEntregaIni,
+          dataEntregaFim: this.state.productOrder.dataEntregaFim
+        }
+      })
       .then((result) => {
         dataToReturn = result.data;
       })
@@ -397,37 +410,24 @@ Data Entrega: ${opm.dataEntrega}`,
   };
 
   handleMaquina = (selected) => {
-    this.resetData();
+    //this.resetData();
     this.setState({ idMaquina: selected });
-    this.getPrioridades(selected, 10);
+    //this.getPrioridades(selected);
   };
-
-
-  
   handleClearMaquina = () => {
     this.resetData();
-    this.getPrioridades('',0);
+    this.getPrioridades('');
   };
 
-  laneScroll = (requestedPage, laneId) => {
-    let aux
-    const idmaquina = this.state.idMaquina;
-    let contador = this.state.contador;
-    if(contador === 1){
-      aux = contador * 10
-      this.setState({
-        contador: contador + 1
-      }) 
-    }else{
-      this.setState({
-        contador: contador + 1
-      })
-      aux = contador * 10
-    }
-     
-      return this.getPrioridades(idmaquina, requestedPage * aux)
-    
-  }
+  hangleChangeV2 = (name) => (value) => {
+    let newObj = this.state.productOrder;
+    newObj[name] = value === null ? '' : value; //moment(value).format('DD-MM-YYYY');
+    console.log(newObj);
+
+    this.setState({
+      productOrder: newObj,
+    });
+  };
 
   render() {
     const { data, listOfMaquinas } = this.state;
@@ -435,10 +435,10 @@ Data Entrega: ${opm.dataEntrega}`,
       <div>
         <Spin spinning={this.state.loading} tip={this.state.loadingTip}>
           <Row>
-            <Col span={10}>
+            <Col span={6}>
               <Form.Item style={{ marginLeft: 10 }}>
                 <Select
-                  style={{ width: 400 }}
+                  style={{ width: 300 }}
                   showSearch
                   allowClear
                   onClear={this.handleClearMaquina}
@@ -464,6 +464,73 @@ Data Entrega: ${opm.dataEntrega}`,
                 </Select>
               </Form.Item>
             </Col>
+
+            <Col span={4}>
+            <Form.Item >
+                  <DatePicker
+                    placeholder='Filtr. Data Prod Inicio'
+                    value={this.state.productOrder.dataProdIni}
+                    format={'DD-MM-YYYY'}
+                    name="dataProdIni"
+                    locale={locale}
+                    onChange={this.hangleChangeV2('dataProdIni')}
+                  />
+                </Form.Item>
+            </Col>
+
+            <Col span={4}>
+            <Form.Item >
+                  <DatePicker
+                  placeholder='Filtr. Data Prod Fim'
+                    value={this.state.productOrder.dataProdFim}
+                    format={'DD-MM-YYYY'}
+                    locale={locale}
+                    name="dataProdFim"
+                    onChange={this.hangleChangeV2('dataProdFim')}
+                  />
+                </Form.Item>
+            </Col>
+
+            <Col span={4}>
+              <Form.Item >
+                    <DatePicker
+                    placeholder='Filtr. Data Entreg. Inicio'
+                      value={this.state.productOrder.dataEntregaIni}
+                      format={'DD-MM-YYYY'}
+                      locale={locale}
+                      name="dataEntregaIni"
+                      onChange={this.hangleChangeV2('dataEntregaIni')}
+                    />
+                  </Form.Item>
+            </Col>
+
+            <Col span={4}>
+              <Form.Item >
+                    <DatePicker
+                     placeholder='Filtr. Data Entreg. Fim'
+                      value={this.state.productOrder.dataEntregaFim}
+                      format={'DD-MM-YYYY'}
+                      locale={locale}
+                      name="dataEntregaFim"
+                      onChange={this.hangleChangeV2('dataEntregaFim')}
+                    />
+                  </Form.Item>
+            </Col>
+          </Row>
+
+          <Row style={{ marginLeft: 2 }} >
+
+            <Col span={4}>
+              <Button
+                  block
+                  // disabled={this.state.tableOfKitToMade.length === 0 ? true : false}
+                  type="primary"
+                  onClick={() => this.getPrioridades(this.state.idMaquina)}
+                >
+                  Pesquisar
+                </Button>
+            </Col>
+
             <Col span={4}>
               <Button
                 block
@@ -476,7 +543,6 @@ Data Entrega: ${opm.dataEntrega}`,
             </Col>
           </Row>
           <Board
-            
             data={data}
             hideCardDeleteIcon
             handleDragEnd={this.handleDragEnd}
@@ -487,7 +553,6 @@ Data Entrega: ${opm.dataEntrega}`,
             onCardMoveAcrossLanes={this.handleOnCardMove}
             laneDraggable={false}
             onCardClick={this.handleOnCardClick}
-            onLaneScroll={this.laneScroll}
           />
         </Spin>
       </div>
