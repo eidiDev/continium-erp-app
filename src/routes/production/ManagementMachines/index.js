@@ -1357,7 +1357,7 @@ class ManagementMachine extends Component {
                     </div>
                   </Col>
 
-                  <Col lg={4} md={6} sm={12} xs={24}>
+                  {/* <Col lg={4} md={6} sm={12} xs={24}>
                     <div className="gx-form-row0">
                       <Form.Item label="Prioridade início">
                         <Input
@@ -1382,7 +1382,7 @@ class ManagementMachine extends Component {
                         />
                       </Form.Item>
                     </div>
-                  </Col>
+                  </Col> */}
 
                   <Col lg={4} md={6} sm={12} xs={24}>
                     <div className="gx-form-row0">
