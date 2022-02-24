@@ -50,7 +50,7 @@ class Produtos extends Component {
       isNew: true,
       loader: true,
       produtos: {
-        category: '',
+        category: 5,
       },
       canNew: true,
       canSave: true,
@@ -899,7 +899,7 @@ class Produtos extends Component {
       canNew: true,
       canDelete: false,
       produtos: {
-        category: '',
+        category: 5,
       },
       fileList: [],
       filePrincipalList: [],

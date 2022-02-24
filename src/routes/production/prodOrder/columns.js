@@ -25,6 +25,9 @@ const apontamentoColumns = [
                     return 'Pausado'
                 case 'operar':
                     return 'Operando'
+                case 'retrabalho':
+                return 'Retrabalhando'
+
                 default:
                     return text;
             }

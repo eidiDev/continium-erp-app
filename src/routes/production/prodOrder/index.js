@@ -90,6 +90,7 @@ class ProdOrder extends Component {
         dataInicio: moment(),
         dataFim: moment(),
         qtdeApontada: 0,
+        motivo_retrabalho: ''
       },
       showLog: false,
       logs: [],
@@ -1021,7 +1022,7 @@ class ProdOrder extends Component {
         this.state.apontamento.etapa === '' ||
         this.state.apontamento.maodeobra === '' ||
         this.state.apontamento.colaborador === '' ||
-        this.state.apontamento.datainicio === ''
+        this.state.apontamento.datainicio === '' 
       ) {
         message.error('Todos os campos devem ser preenchidos');
         this.setState({ loadingApontamento: false });
@@ -1071,7 +1072,10 @@ class ProdOrder extends Component {
         dataInicio: this.state.apontamento.dataInicio.format('DD/MM/YY HH:mm'),
         dataFim: this.state.apontamento.dataFim.format('DD/MM/YY HH:mm'),
         tempoRealizado: this.state.apontamento.tempoRealizado,
+        motivo_retrabalho:  this.state.apontamento.motivo_retrabalho
       };
+
+      console.log(apontamento);
 
       //Agora ele vai gravar no banco de dados.
       await api

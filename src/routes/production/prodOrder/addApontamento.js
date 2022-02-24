@@ -94,11 +94,30 @@ class AddApontamento extends React.Component {
                     <Option value="pausar">Pausa</Option>
                     <Option value="programar">Programando</Option>
                     <Option value="operar">Operando</Option>
+                    <Option value="retrabalho">Retrabalho</Option>
                   </Select>
                   {/* {this.validator.message('establishments', orderPro.establishment, 'required|alpha_num',{ className: 'text-danger' })} */}
                 </Form.Item>
               </div>
             </Col>
+            {this.props.apontamento.tipo === 'retrabalho' ? 
+            <Col span={24}>
+              <div className="gx-form-row0">
+                <Form.Item label="Motivo de retrabalho" >
+                  <Input
+                    style={{ width: '100%' }}
+                    value={this.props.apontamento.motivo_retrabalho}
+                    name="motivo_retrabalho"
+                    onChange={this.props.onChange('motivo_retrabalho')}
+                  >
+                  </Input>
+                  {/* {this.validator.message('establishments', orderPro.establishment, 'required|alpha_num',{ className: 'text-danger' })} */}
+                </Form.Item>
+              </div>
+            </Col>
+            :
+            ''
+            }
             <Col span={24}>
               <div className="gx-form-row0">
                 <Form.Item label="Colaborador" required={true}>
