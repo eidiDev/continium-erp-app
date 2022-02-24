@@ -802,7 +802,7 @@ class ProdOrder extends Component {
 
       auxPrioridade.forEach((obj) => {
         if (obj.cod === this.state.productOrder.product_cod) {
-          tableCompAux = obj.kit[0].products;
+          tableCompAux = this.state.isNew === true ? obj.kit[0].products : obj.kit.products ;
         }
       });
       let newProdOrder = this.state.productOrder;
