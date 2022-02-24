@@ -355,7 +355,7 @@ class ManagementOrder extends Component {
         title: 'Cliente',
         width: 100,
         align: 'center',
-        dataIndex: 'partner.razaosocial',
+        dataIndex: 'partnerObj.razao_social',
         key: 'partner',
         onCell: () => {
           return {
@@ -373,7 +373,7 @@ class ManagementOrder extends Component {
       {
         title: 'Estabelecimento',
         width: 110,
-        dataIndex: 'establishments.name',
+        dataIndex: 'establishmentsObj.name',
         key: 'establishments',
         onCell: () => {
           return {

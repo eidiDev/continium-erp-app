@@ -820,7 +820,11 @@ class KitProdutos extends Component {
               .catch(function(error) { 
                   console.log(error);
                   parent.setStateNew();
-                  message.error(error.response.data.message);
+                  if(error.response.data.error.status === 500){
+                    message.error('Este produto ja tem um Kit cadastrado no sistema, Tente Novamente')
+                  }else{
+                    message.error('Não foi possivel cadastrar, Tente Novamente');
+                  }
               })
           }, 1000);
         }else {

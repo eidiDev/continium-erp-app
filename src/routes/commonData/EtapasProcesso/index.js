@@ -220,12 +220,12 @@ class EstapasProcesso extends Component {
                 }).then((result) => {
                     //Caso consiga recuperar o model, ele atualiza a tela e para de carregar
                     message.success('Etapa salvo com sucesso!');
-                    if(result.config.method === "post"){
-                        let id = result.data.establishments;
-                        result.data.establishments = {
-                            id: id
-                        }
-                    }
+                    // if(result.config.method === "post"){
+                    //     let id = result.data.establishments;
+                    //     result.data.establishments = {
+                    //         id: id
+                    //     }
+                    // }
                     parent.setStateEdit(result.data)
                     parent.leftListChild.current.fetchLeftList()
                 },)
@@ -293,6 +293,7 @@ class EstapasProcesso extends Component {
             canDelete: false,
             Step: {
                     status: false,
+                    establishments: 1,
                     generaldata: {
                         codMaquina: '',
                         descMaquina: '',
@@ -320,7 +321,7 @@ class EstapasProcesso extends Component {
     //Seta o estado para edição
     setStateEdit = (model) => {
         console.log(model);
-        model.establishments = model.establishments.id;
+        //model.establishments = model.establishments.id;
         this.setState({ 
             canSave: true,
             canNew: true,

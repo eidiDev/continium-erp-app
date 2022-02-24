@@ -204,7 +204,17 @@ class etapaXprod extends Component {
 
   getEtapas() {
     api
-      .get(`${model4}`, {})
+      .get(`${model4}`, {
+        params: {
+          params: [
+            {
+              field: 'status',
+              value: true,
+              op: '=',
+            },
+          ],
+        },
+      })
       .then((result) => {
         let dataProd = [];
         dataProd = result.data.data;
