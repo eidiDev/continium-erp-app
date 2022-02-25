@@ -83,6 +83,9 @@ class etapaXprod extends Component {
         title: 'Etapa',
         dataIndex: 'etapas',
         key: 'etapas',
+        render: (text) => {
+          return (text.toString().replace('null', ''))
+        }
       },
       {
         title: 'Maquina',
