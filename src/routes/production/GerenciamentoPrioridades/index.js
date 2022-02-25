@@ -468,7 +468,7 @@ Data Entrega: ${opm.dataEntrega}`,
             <Col span={4}>
             <Form.Item >
                   <DatePicker
-                    placeholder='Filtr. Data Prod Inicio'
+                    placeholder='Data Prod Inicio'
                     value={this.state.productOrder.dataProdIni}
                     format={'DD-MM-YYYY'}
                     name="dataProdIni"
@@ -481,7 +481,7 @@ Data Entrega: ${opm.dataEntrega}`,
             <Col span={4}>
             <Form.Item >
                   <DatePicker
-                  placeholder='Filtr. Data Prod Fim'
+                  placeholder='Data Prod Fim'
                     value={this.state.productOrder.dataProdFim}
                     format={'DD-MM-YYYY'}
                     locale={locale}
@@ -494,7 +494,7 @@ Data Entrega: ${opm.dataEntrega}`,
             <Col span={4}>
               <Form.Item >
                     <DatePicker
-                    placeholder='Filtr. Data Entreg. Inicio'
+                    placeholder='Data Entreg. Inicio'
                       value={this.state.productOrder.dataEntregaIni}
                       format={'DD-MM-YYYY'}
                       locale={locale}
@@ -507,7 +507,7 @@ Data Entrega: ${opm.dataEntrega}`,
             <Col span={4}>
               <Form.Item >
                     <DatePicker
-                     placeholder='Filtr. Data Entreg. Fim'
+                     placeholder='Data Entreg. Fim'
                       value={this.state.productOrder.dataEntregaFim}
                       format={'DD-MM-YYYY'}
                       locale={locale}
