@@ -95,12 +95,13 @@ class AddApontamento extends React.Component {
                     <Option value="programar">Programando</Option>
                     <Option value="operar">Operando</Option>
                     <Option value="retrabalho">Retrabalho</Option>
+                    <Option value="outro">Outros</Option>
                   </Select>
                   {/* {this.validator.message('establishments', orderPro.establishment, 'required|alpha_num',{ className: 'text-danger' })} */}
                 </Form.Item>
               </div>
             </Col>
-            {this.props.apontamento.tipo === 'retrabalho' ? 
+            {this.props.apontamento.tipo === 'retrabalho' || this.props.apontamento.tipo === 'outro' ? 
             <Col span={24}>
               <div className="gx-form-row0">
                 <Form.Item label="Motivo de retrabalho" >

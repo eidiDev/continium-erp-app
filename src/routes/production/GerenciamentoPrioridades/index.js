@@ -85,6 +85,7 @@ class GerenciamentoPrioridades extends Component {
       ],
       listOfMaquinas: [],
       originalData: {},
+      user: {},
       data: {
         lanes: [
           {
@@ -92,6 +93,34 @@ class GerenciamentoPrioridades extends Component {
             title: 'Planejada',
             cards: [],
           },
+          {
+            id: 'liberada',
+            title: 'Liberada',
+            cards: [],
+          },
+          {
+            id: 'execucao',
+            title: 'Em execução',
+            cards: [],
+            cardDraggable: false,
+            droppable: false,
+          },
+          {
+            id: 'pausada',
+            title: 'Pausada',
+            cards: [],
+            cardDraggable: false,
+            droppable: false,
+          },
+          {
+            id: 'finalizada',
+            title: 'Finalizada',
+            cards: [],
+          },
+        ],
+      },
+      data2: {
+        lanes: [
           {
             id: 'liberada',
             title: 'Liberada',
@@ -191,7 +220,28 @@ class GerenciamentoPrioridades extends Component {
     }
   };
 
+  getUser() {
+    let token = localStorage.getItem('token');
+    // { headers: {"access-token" : `Bearer ${token}`}
+
+    api
+      .post(`getUserSession`, { headers: { 'access-token': `Bearer ${token}` } })
+      .then((result) => {
+        let dataUser = [];
+         console.log(result);
+        dataUser = result.data;
+        if (this.state.user)
+          this.setState({
+            user: dataUser,
+          });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   componentDidMount() {
+    this.getUser()
     this.getMaquinas();
     this.getPrioridades('','inicio');
   }
@@ -430,7 +480,7 @@ Data Entrega: ${opm.dataEntrega}`,
   };
 
   render() {
-    const { data, listOfMaquinas } = this.state;
+    const { data, listOfMaquinas, user, data2 } = this.state;
     return (
       <div>
         <Spin spinning={this.state.loading} tip={this.state.loadingTip}>
@@ -543,7 +593,7 @@ Data Entrega: ${opm.dataEntrega}`,
             </Col>
           </Row>
           <Board
-            data={data}
+            data={user.role === 'admin' ? data : data2 }
             hideCardDeleteIcon
             handleDragEnd={this.handleDragEnd}
             handleDragStart={this.handleDragStart}
