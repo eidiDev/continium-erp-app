@@ -104,7 +104,7 @@ class AddApontamento extends React.Component {
             {this.props.apontamento.tipo === 'retrabalho' || this.props.apontamento.tipo === 'outro' ? 
             <Col span={24}>
               <div className="gx-form-row0">
-                <Form.Item label="Motivo de retrabalho" >
+                <Form.Item label={this.props.apontamento.tipo === 'retrabalho' ? "Motivo de retrabalho" : "Descrição do trabalho" } >
                   <Input
                     style={{ width: '100%' }}
                     value={this.props.apontamento.motivo_retrabalho}
