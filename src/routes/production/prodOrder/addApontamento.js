@@ -72,7 +72,7 @@ class AddApontamento extends React.Component {
                     {etapas.map((item) => {
                       return (
                         <Option value={item.id}>
-                          {item.codEtapas}
+                          {item.codEtapas.toString().replace('null', '')}
                         </Option>
                       );
                     })}
