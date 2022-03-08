@@ -47,7 +47,7 @@ class SignIn extends React.Component {
               {/* <img alt="example" src={require("assets/images/logo-header.4fe7d899.svg")}/> */}
               </div>
 
-              <img alt="example" src={require("assets/images/logo-header.4fe7d899.svg")}/>
+              <img alt="example" src={require("assets/images/output-onlinepngtools.png")}/>
             </div>
             <div className="gx-app-login-content">
               <Form onSubmit={this.handleSubmit} className="gx-signin-form gx-form-row0">
