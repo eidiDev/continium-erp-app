@@ -10,6 +10,9 @@ import MainApp from "./MainApp";
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 import dashboardV3 from '../../routes/dashboard/V3';
+import tabletV2 from '../../routes/TabletV2'
+import aptProd from '../../routes/TabletV2/aptOrderProd'
+
 import {setInitUrl} from "../../appRedux/actions/Auth";
 import {onLayoutTypeChange, onNavStyleChange, setThemeType} from "../../appRedux/actions/Setting";
 
@@ -149,6 +152,7 @@ class App extends Component {
             <Route exact path='/signin' component={SignIn}/>
             <Route exact path='/signup' component={SignUp}/>
             <Route exact path="/dashboard" component={dashboardV3} />
+            <RestrictedRoute path="/tabletProd"  token={token} component={tabletV2} />
             <RestrictedRoute path={`${match.url}`} token={token}
                              component={MainApp}/>
           </Switch>
