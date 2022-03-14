@@ -223,9 +223,7 @@ class DashboardV3 extends React.Component {
       .get(url)
       .then((result) => {
         console.log(result);
-        var grouped = _.mapValues(_.groupBy(result.data, 'maquina', 'montagem'), (clist) =>
-          clist.map((car) => _.omit(car, 'maquina')),
-        );
+        var grouped = _.mapValues(_.groupBy(result.data, 'maquina', 'montagem'));
 
 
         console.log(grouped);
@@ -331,11 +329,32 @@ class DashboardV3 extends React.Component {
                                     renderItem={item => (
                                       <List.Item>
                                         <Card
-                                          title={item.id}
+                                          title={`Ordem Produção : ${item.orderProdObj.id}`}
                                           hoverable={true}
                                           onClick={() => this.clickOnCard(item)}
                                         >
-                                          {item.id}
+                                          <Row gutter={[10, 10]} >
+                                            <Col span={24}>
+                                              {`Data inicio: ${item.orderProdObj.dataProd}`}
+                                            </Col>
+
+                                            <Col span={24}>
+                                              {`Descrição: ${item.orderProdObj.orderProduction}`}
+                                            </Col>
+
+                                            <Col span={24}>
+                                              {`Quantidade solicitada: ${item.orderProdObj.qtde}`}
+                                            </Col>
+
+                                            <Col span={24}>
+                                              {`Data de Entrega: ${item.orderProdObj.dataEntrega}`}
+                                            </Col>
+
+                                            <Col span={24}>
+                                              {`Descrição: ${item.orderProdObj.dataProd}`}
+                                            </Col>
+
+                                          </Row>
                                         </Card>
                                       </List.Item>
                                     )}
