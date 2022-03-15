@@ -264,6 +264,8 @@ class DashboardV3 extends React.Component {
       flagToSecondPage: false,
       orderprodSelect: {}
     })
+
+    this.getOrdersByMachinesSelect()
   }
 
 
