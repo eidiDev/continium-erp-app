@@ -297,6 +297,7 @@ class UsersExpert extends Component {
                                                         <Select value={user.role} style={{ width: 200 }} onChange={this.handleTip}>
                                                         <Option value={"admin"}>Admin</Option>
                                                         <Option value={"normal"}>Normal</Option>
+                                                        <Option value={"tablet"}>Tablet</Option>
                                                         </Select>
                                             </Form.Item>
                                         </div>

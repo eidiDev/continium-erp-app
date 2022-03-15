@@ -5,7 +5,8 @@ import {
   INIT_URL,
   SIGNOUT_USER_SUCCESS,
   USER_DATA,
-  USER_TOKEN_SET
+  USER_TOKEN_SET,
+  USER_TYPE_SET
 } from "../../constants/ActionTypes";
 import api from '../../util/ApiAdonis';
 // import api from '../../util/Api';
@@ -63,9 +64,12 @@ export const userSignIn = ({email, password}) => {
         console.log(data);
         localStorage.setItem("token", JSON.stringify(data.token));
         localStorage.setItem("user", JSON.stringify(data.user.username));
+        localStorage.setItem("role", JSON.stringify(data.user.role));
+
         api.defaults.headers.common['access-token'] = "Bearer " + data.token;
         dispatch({type: FETCH_SUCCESS});
         dispatch({type: USER_TOKEN_SET, payload: data.token});
+        dispatch({type: USER_TYPE_SET, payload: data.user.role})
       } else {
         dispatch({type: FETCH_ERROR, payload: data.error});
       }

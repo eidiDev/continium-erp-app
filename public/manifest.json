@@ -1,9 +1,9 @@
 {
-  "short_name": "Maktor",
-  "name": "Maktor- Admin Dashboard",
+  "short_name": "Competec",
+  "name": "Competec - ERP",
   "icons": [
     {
-      "src": "pneumax.png",
+      "src": "logo-competec.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/png"
     }

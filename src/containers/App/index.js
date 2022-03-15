@@ -1,9 +1,9 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import URLSearchParams from 'url-search-params'
-import {Redirect, Route, Switch} from "react-router-dom";
-import {ConfigProvider} from "antd";
-import {IntlProvider} from "react-intl";
+import { Redirect, Route, Switch } from "react-router-dom";
+import { ConfigProvider } from "antd";
+import { IntlProvider } from "react-intl";
 
 import AppLocale from "lngProvider";
 import MainApp from "./MainApp";
@@ -12,9 +12,10 @@ import SignUp from "../SignUp";
 import dashboardV3 from '../../routes/dashboard/V3';
 import tabletV2 from '../../routes/TabletV2'
 import aptProd from '../../routes/TabletV2/aptOrderProd'
+import api from 'util/Api';
 
-import {setInitUrl} from "../../appRedux/actions/Auth";
-import {onLayoutTypeChange, onNavStyleChange, setThemeType} from "../../appRedux/actions/Setting";
+import { setInitUrl } from "../../appRedux/actions/Auth";
+import { onLayoutTypeChange, onNavStyleChange, setThemeType } from "../../appRedux/actions/Setting";
 
 import {
   LAYOUT_TYPE_BOXED,
@@ -27,9 +28,9 @@ import {
   NAV_STYLE_INSIDE_HEADER_HORIZONTAL,
   THEME_TYPE_DARK
 } from "../../constants/ThemeSetting";
-import {getUser} from "../../appRedux/actions/Auth";
+import { getUser } from "../../appRedux/actions/Auth";
 
-const RestrictedRoute = ({component: Component, token, ...rest}) =>
+const RestrictedRoute = ({ component: Component, token, ...rest }) =>
   <Route
     {...rest}
     render={props =>
@@ -38,22 +39,22 @@ const RestrictedRoute = ({component: Component, token, ...rest}) =>
         : <Redirect
           to={{
             pathname: '/signin',
-            state: {from: props.location}
+            state: { from: props.location }
           }}
         />}
   />;
-  // <Route
-  // {...rest}
-  // render={props =>
-  //     <Component {...props} />
-  //     }
+// <Route
+// {...rest}
+// render={props =>
+//     <Component {...props} />
+//     }
 // />;
 
 
 class App extends Component {
-  
+
   setLayoutType = (layoutType) => {
-    
+
     if (layoutType === LAYOUT_TYPE_FULL) {
       document.body.classList.remove('boxed-layout');
       document.body.classList.remove('framed-layout');
@@ -101,15 +102,13 @@ class App extends Component {
   }
 
   render() {
-    const {match, location, themeType, layoutType, navStyle, locale, token, initURL} = this.props;
-    // console.log('user:',authUser);
-    
+    const { match, location, themeType, layoutType, navStyle, locale, token, initURL } = this.props;
     if (themeType === THEME_TYPE_DARK) {
       document.body.classList.add('dark-theme');
     }
-    //let user = localStorage.getItem('user');
-    //let myJson = JSON.parse(user);
-    // console.log(myJson);
+
+    let role = localStorage.getItem('role');
+    let myJson = JSON.parse(role);
 
     // if(myJson === null){
     // }else{
@@ -123,22 +122,27 @@ class App extends Component {
     //     console.log('acesso negado')
     //   }
     // }
-    
+
 
 
     if (location.pathname === '/') {
       // console.log('token',token);
-      if (token === null) {
+      if (token === null ) {
         // return (<Redirect to={'/dashboardv2'}/> );
-        return ( <Redirect to={'/signin'}/> );
+        return (<Redirect to={'/signin'} />);
       } else if (initURL === '' || initURL === '/' || initURL === '/signin') {
-        return ( <Redirect to={'/dashboardV3'}/> );
+
+       if(myJson === 'tablet'){
+        return (<Redirect to={'/tabletProd'} />);
+       }else{
+        return (<Redirect to={'/dashboardV3'} />);
+       }
       } else {
-        return ( <Redirect to={initURL}/> );
+        return (<Redirect to={initURL} />);
       }
     }
     this.setLayoutType(layoutType);
-    
+
     this.setNavStyle(navStyle);
 
     const currentAppLocale = AppLocale[locale.locale];
@@ -149,12 +153,16 @@ class App extends Component {
           messages={currentAppLocale.messages}>
 
           <Switch>
-            <Route exact path='/signin' component={SignIn}/>
-            <Route exact path='/signup' component={SignUp}/>
+            <Route exact path='/signin' component={SignIn} />
+            <Route exact path='/signup' component={SignUp} />
+
+
+            <RestrictedRoute path="/tabletProd" token={token} component={tabletV2} />
+
             <Route exact path="/dashboard" component={dashboardV3} />
-            <RestrictedRoute path="/tabletProd"  token={token} component={tabletV2} />
             <RestrictedRoute path={`${match.url}`} token={token}
-                             component={MainApp}/>
+              component={MainApp} />
+
           </Switch>
         </IntlProvider>
       </ConfigProvider>
@@ -162,10 +170,10 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({settings, auth}) => {
-  const {locale, navStyle, themeType, layoutType} = settings;
-  const {authUser, token, initURL} = auth;
-  return {locale, token, navStyle, themeType, layoutType, authUser, initURL}
+const mapStateToProps = ({ settings, auth }) => {
+  const { locale, navStyle, themeType, layoutType } = settings;
+  const { authUser, token, initURL } = auth;
+  return { locale, token, navStyle, themeType, layoutType, authUser, initURL }
 };
 // export default connect(mapStateToProps, {setInitUrl, setThemeType, onNavStyleChange, onLayoutTypeChange})(App);
-export default connect(mapStateToProps, {setInitUrl, getUser, setThemeType, onNavStyleChange, onLayoutTypeChange})(App);
+export default connect(mapStateToProps, { setInitUrl, getUser, setThemeType, onNavStyleChange, onLayoutTypeChange })(App);
