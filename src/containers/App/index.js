@@ -138,12 +138,7 @@ class App extends Component {
         return (<Redirect to={'/dashboardV3'} />);
        }
       } else {
-        if(myJson === 'tablet'){
-          return (<Redirect to={'/tabletProd'} />);
-         }else{
-          return (<Redirect to={initURL} />);
-         }
-        
+        return (<Redirect to={initURL} />);
       }
     }
     this.setLayoutType(layoutType);
