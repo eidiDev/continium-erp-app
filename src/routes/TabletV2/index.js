@@ -36,6 +36,7 @@ class DashboardV3 extends React.Component {
       loading: false,
       password: '',
       orderprodSelect: {},
+      operadorSelect : {},
       flagToSecondPage: false
     };
   }
@@ -131,30 +132,30 @@ class DashboardV3 extends React.Component {
                 if (machineL.data.passwordappoitment === this.state.password) {
                   // navigateOrdem(response.data);
 
-                  message.success('OK')
+                  message.success('Login feito com Sucesso !')
                   referenceThis.setState({
-                    flagToSecondPage: true
+                    flagToSecondPage: true,
+                    operadorSelect: response.data[0]
                   })
                 } else {
                   message.error(
-                    "Aviso",
-                    "Ordem de produção em andamento para o operador: " +
+                    "Aviso Ordem de produção em andamento para o operador: " +
                     machineL.data.name
                   );
                 }
               });
           } else {
             console.log("else");
-            message.success('OK')
+            message.success('Login feito com Sucesso !')
             referenceThis.setState({
-              flagToSecondPage: true
+              flagToSecondPage: true,
+              operadorSelect: response.data[0]
             })
             //navigateOrdem(response.data);
           }
         } else {
           message.error(
-            "Aviso",
-            "Nenhuma matricula encontrada para esse código."
+            "Aviso Nenhuma matricula encontrada para esse código."
           );
         }
       })
@@ -262,7 +263,8 @@ class DashboardV3 extends React.Component {
   backToFirstPage = () => {
     this.setState({
       flagToSecondPage: false,
-      orderprodSelect: {}
+      orderprodSelect: {},
+      operadorSelect: {}
     })
 
     this.getOrdersByMachinesSelect()
@@ -281,7 +283,7 @@ class DashboardV3 extends React.Component {
       },
     ];
 
-    const { listOfMachines, listOfOrdersByMachines, lengthOfChecks, flagToSecondPage, orderprodSelect } = this.state
+    const { listOfMachines, listOfOrdersByMachines, lengthOfChecks, flagToSecondPage, orderprodSelect, operadorSelect } = this.state
 
     return (
       <div>
@@ -290,6 +292,7 @@ class DashboardV3 extends React.Component {
             <AptProd 
               orderProdSelect={orderprodSelect}
               backToFirstPage={this.backToFirstPage}
+              operadorSelect={operadorSelect}
             />
             :
             <Spin spinning={this.state.loading} tip={this.state.loadingTip}>

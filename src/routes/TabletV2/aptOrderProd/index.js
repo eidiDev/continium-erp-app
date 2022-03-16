@@ -252,7 +252,7 @@ class AptProd extends React.Component {
 
     btnAddApontamento = async (tipo, id) => {
         this.setState({ loading: true, loadingTip: "Carregando Operação..." });
-        const { orderProdSelect } = this.props;
+        const { orderProdSelect, operadorSelect } = this.props;
 
         console.log(orderProdSelect);
 
@@ -261,7 +261,7 @@ class AptProd extends React.Component {
             qtdeApontada: id === 0 ? 0 : this.state.qtdeApontada,
             orderProd: orderProdSelect.orderProdObj.id,
             machineLabor: null,
-            colaborador: null,
+            colaborador: operadorSelect.id,
             etapa: orderProdSelect.id,
             maquina: orderProdSelect.maquina ? orderProdSelect.maquina : orderProdSelect.montagem,
             orderProdMaqId: orderProdSelect.id,
@@ -366,7 +366,7 @@ class AptProd extends React.Component {
                 etapa: orderProdSelect.id,
                 maquina: orderProdSelect.maquina ? orderProdSelect.maquina : orderProdSelect.montagem,
                 dataInicio: Moment().format("DD/MM/YY HH:mm:ss"),
-                colaborador: null,
+                colaborador: operadorSelect.id,
                 orderProdMaqId: orderProdSelect.id,
             };
             // this.setState({ ordem_status: "execução" });
