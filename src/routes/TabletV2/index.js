@@ -33,6 +33,7 @@ class DashboardV3 extends React.Component {
       checkeds: checkeds,
       listOfOrdersByMachines: [],
       lengthOfChecks: checkeds.length,
+      lengthWithNoVoid: 0,
       loading: false,
       password: '',
       orderprodSelect: {},
@@ -241,7 +242,8 @@ class DashboardV3 extends React.Component {
 
         this.setState({
           listOfOrdersByMachines: listToAddState,
-          loading: false
+          loading: false,
+          lengthWithNoVoid: listToAddState.length
         });
 
       })
@@ -283,7 +285,7 @@ class DashboardV3 extends React.Component {
       },
     ];
 
-    const { listOfMachines, listOfOrdersByMachines, lengthOfChecks, flagToSecondPage, orderprodSelect, operadorSelect } = this.state
+    const { listOfMachines, listOfOrdersByMachines, lengthOfChecks, flagToSecondPage, orderprodSelect, operadorSelect, lengthWithNoVoid } = this.state
 
     return (
       <div>
@@ -316,12 +318,12 @@ class DashboardV3 extends React.Component {
                             listOfOrdersByMachines.map(machinesWithOrders => {
                               return (
                                 <Col
-                                  xxl={lengthOfChecks === 1 ? 24 : 8}
-                                  xl={lengthOfChecks === 1 ? 24 : 8}
-                                  lg={lengthOfChecks === 1 ? 24 : 8}
-                                  md={lengthOfChecks === 1 ? 24 : 8}
-                                  sm={lengthOfChecks === 1 ? 24 : 8}
-                                  xs={lengthOfChecks === 1 ? 24 : 8}
+                                  xxl={lengthWithNoVoid === 1 ? 24 : 8}
+                                  xl={lengthWithNoVoid === 1 ? 24 : 8}
+                                  lg={lengthWithNoVoid === 1 ? 24 : 8}
+                                  md={lengthWithNoVoid === 1 ? 24 : 8}
+                                  sm={lengthWithNoVoid === 1 ? 24 : 8}
+                                  xs={lengthWithNoVoid === 1 ? 24 : 8}
                                 >
                                   <Card >
                                     <center>
