@@ -14,6 +14,8 @@ const StatusEnum = Object.freeze({
     montar: "Montando",
     operar: "Operando",
     pausar: "Pausado",
+    retrabalho: "Retrabalho",
+    outro: "Outros",
     controle: "Controle",
 });
 
@@ -35,7 +37,8 @@ class AptProd extends React.Component {
             qtdeApontadaEtapa: 0,
             qtdeApontadaEtapaAnterior: 0,
             maquina_cod: this.props.orderProdSelect.maquina ? this.props.orderProdSelect.maquina : this.props.orderProdSelect.montagem,
-            lodingAll: false
+            lodingAll: false,
+            motivoText: ""
         };
 
         this.columnsApt = [
@@ -74,6 +77,14 @@ class AptProd extends React.Component {
         this.getOrdemDetail(this.props.orderProdSelect.orderProdObj.id);
     }
 
+    onChangeMotivo = event => {
+        let motivoEvent = this.state.motivoText;
+        motivoEvent = event.target.value;
+
+        this.setState(() => ({
+            motivoText: motivoEvent
+        }))
+    }
 
     getOrdemDetail = async (id) => {
         // this.setState({ spinner: true });
@@ -222,6 +233,11 @@ class AptProd extends React.Component {
                 return StatusEnum.pausar;
             case "controle":
                 return StatusEnum.controle;
+            case "retrabalho":
+                return StatusEnum.retrabalho;
+            case "outro":
+                return StatusEnum.outro;
+
             default:
                 return "";
                 break;
@@ -265,6 +281,7 @@ class AptProd extends React.Component {
             etapa: orderProdSelect.id,
             maquina: orderProdSelect.maquina ? orderProdSelect.maquina : orderProdSelect.montagem,
             orderProdMaqId: orderProdSelect.id,
+            motivo_retrabalho: this.state.motivoText
         };
 
         //Deve buscar o apontamento no banco de dados, para pegar as propriedades e atualizar
@@ -331,6 +348,7 @@ class AptProd extends React.Component {
                         idApontando: 0,
                         qtdeApontada: 0,
                         apontamentos: apontamentos,
+                        motivoText: "",
                         qtdeApontadaEtapa:
                             parseInt(this.state.qtdeApontadaEtapa) +
                             parseInt(apontamento.qtdeApontada),
@@ -428,6 +446,12 @@ class AptProd extends React.Component {
             case "pausar":
                 this.btnAddApontamento("pausar", this.state.idApontando);
                 break;
+            case "retrabalho":
+                this.btnAddApontamento("retrabalho", this.state.idApontando);
+                break;
+            case "outro":
+                this.btnAddApontamento("outro", this.state.idApontando);
+                break;
             case "finalizar":
                 this.btnFinalizar();
                 break;
@@ -521,7 +545,7 @@ class AptProd extends React.Component {
         confirm({
             title: 'Finalizar ordem de produção',
             content: 'Tem certeza que deseja finalizar essa Ordem?',
-            async onOk()  {
+            async onOk() {
                 flagThis.setState({ loadingTipAll: true });
                 await api
                     .post(
@@ -772,6 +796,32 @@ class AptProd extends React.Component {
                                     </Col>
                                 </Row>
 
+                                {
+                                    this.state.tipoApondamento === "retrabalho" || this.state.tipoApondamento === "outro" ?
+                                        <Row gutter={[14, 10]}>
+                                            <Col span={24}>
+                                                <Card type="inner" title="Motivos de Retrabalho / Outros">
+                                                    <Row>
+                                                        <Col lg={6} md={6} sm={12} xs={24}>
+                                                            <div className="gx-form-row0">
+                                                                <Input
+                                                                    placeholder='Motivo'
+                                                                    value={this.state.motivoText}
+                                                                    onChange={this.onChangeMotivo}
+                                                                />
+                                                            </div>
+                                                        </Col>
+                                                    </Row>
+                                                </Card>
+                                            </Col>
+                                        </Row>
+                                        :
+
+                                        ""
+                                }
+
+
+
                                 <Row gutter={[10, 10]}>
 
                                     <Col
@@ -806,6 +856,7 @@ class AptProd extends React.Component {
                                                     <Button
                                                         type={this.state.tipoApondamento === 'programar' && this.state.isApontando ? "danger" : "primary"}
                                                         block
+                                                        className="gx-btn-dark"
                                                         disabled={this.state.isApontando === true && this.state.tipoApondamento !== "programar" ? true : false}
                                                         onClick={() => this.onPressBtn("programar", true)}
                                                     >
@@ -819,6 +870,7 @@ class AptProd extends React.Component {
                                                     <Button
                                                         type={this.state.tipoApondamento === 'operar' && this.state.isApontando ? "danger" : "primary"}
                                                         block
+                                                        className="gx-btn-dark"
                                                         disabled={this.state.isApontando === true && this.state.tipoApondamento !== "operar" ? true : false}
                                                         onClick={() => this.onPressBtn("operar", true)}
                                                     >
@@ -832,6 +884,7 @@ class AptProd extends React.Component {
                                                     <Button
                                                         type={this.state.tipoApondamento === 'pausar' && this.state.isApontando ? "danger" : "primary"}
                                                         block
+                                                        className="gx-btn-dark"
                                                         disabled={this.state.isApontando === true && this.state.tipoApondamento !== "pausar" ? true : false}
                                                         onClick={() => this.onPressBtn("pausar", true)}
                                                     >
@@ -843,8 +896,37 @@ class AptProd extends React.Component {
                                             <Row>
                                                 <Col span={24}>
                                                     <Button
+                                                        type={this.state.tipoApondamento === 'retrabalho' && this.state.isApontando ? "danger" : "primary"}
+                                                        block
+                                                        className="gx-btn-purple"
+                                                        disabled={this.state.isApontando === true && this.state.tipoApondamento !== "retrabalho" ? true : false}
+                                                        onClick={() => this.onPressBtn("retrabalho", true)}
+                                                    >
+                                                        {this.state.tipoApondamento === 'retrabalho' && this.state.isApontando ? "Parar" : "Retrabalho"}
+                                                    </Button>
+                                                </Col>
+                                            </Row>
+
+                                            <Row>
+                                                <Col span={24}>
+                                                    <Button
+                                                        type={this.state.tipoApondamento === 'outro' && this.state.isApontando ? "danger" : "primary"}
+                                                        block
+                                                        className="gx-btn-purple"
+                                                        disabled={this.state.isApontando === true && this.state.tipoApondamento !== "outro" ? true : false}
+                                                        onClick={() => this.onPressBtn("outro", true)}
+                                                    >
+                                                        {this.state.tipoApondamento === 'outro' && this.state.isApontando ? "Parar" : "Outros"}
+                                                    </Button>
+                                                </Col>
+                                            </Row>
+
+                                            <Row>
+                                                <Col span={24}>
+                                                    <Button
                                                         type="primary"
                                                         block
+                                                        className="gx-btn-secondary"
                                                         disabled={this.state.isApontando === true && this.state.tipoApondamento !== "finalizar" ? true : false}
                                                         onClick={() => this.showConfirm()}
                                                     >
