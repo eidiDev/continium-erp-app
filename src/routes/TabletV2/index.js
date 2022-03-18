@@ -40,6 +40,7 @@ class DashboardV3 extends React.Component {
       operadorSelect : {},
       flagToSecondPage: false
     };
+
   }
 
 
@@ -195,7 +196,11 @@ class DashboardV3 extends React.Component {
   }
 
   componentDidMount() {
-    this.getMaquinas()
+    this.getMaquinas();
+
+    if(this.state.checkeds.length !== 0){
+      this.handleOk()
+    }
   }
 
   onChangeCheckBox = (checkedValues) => {
@@ -221,7 +226,14 @@ class DashboardV3 extends React.Component {
     let url = "orderProdMaquina/maquina/" + maqs;
     // console.log(url);
 
-    const ordersResult = await api
+    if(maqs === ''){
+      this.setState({
+        loading:false
+      });
+
+      message.error("Nenhuma Maquina selecionada, selecione uma maquina para prosseguir.");
+    }else{
+      const ordersResult = await api
       .get(url)
       .then((result) => {
         console.log(result);
@@ -251,7 +263,11 @@ class DashboardV3 extends React.Component {
         console.log(error);
       });
 
-    console.log(maqs);
+      console.log(maqs);
+    }
+    
+
+   
   }
 
   clickOnCard = (item) => {
@@ -378,7 +394,7 @@ class DashboardV3 extends React.Component {
                         onOk={this.handleOk}
                         onCancel={this.handleCancel}
                       >
-                        <Checkbox.Group style={{ width: '100%' }} onChange={this.onChangeCheckBox}>
+                        <Checkbox.Group style={{ width: '100%' }} onChange={this.onChangeCheckBox} value={this.state.checkeds}>
                           <Row gutter={[12, 24]}>
                             {listOfMachines.map(mach => {
                               return (
