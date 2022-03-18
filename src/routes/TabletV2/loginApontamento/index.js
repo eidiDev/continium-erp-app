@@ -17,7 +17,7 @@ class LoginApontamento extends React.Component {
     return (
       <>
         <Modal
-          title="Digite sua Matrícula"
+          title="Digite seu identificador"
           visible={this.props.visibleLogin}
           onOk={this.props.handleOkLogin}
           onCancel={this.props.handleCancelLogin}
@@ -29,7 +29,7 @@ class LoginApontamento extends React.Component {
                 type="password"
                 value={this.props.passwordInput}
                 onChange={this.props.handleChange}
-                placeholder="Matrícula"
+                placeholder="Identificador"
               />
             </Col>
           </Row>
