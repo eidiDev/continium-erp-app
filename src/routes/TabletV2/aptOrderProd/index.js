@@ -543,8 +543,8 @@ class AptProd extends React.Component {
     showConfirm = () => {
         let flagThis = this
         confirm({
-            title: 'Finalizar ordem de produção',
-            content: 'Tem certeza que deseja finalizar essa Ordem?',
+            title: 'Finalizar Etapa',
+            content: 'Tem certeza que deseja finalizar esta Etapa ?',
             async onOk() {
                 flagThis.setState({ loadingTipAll: true });
                 await api
@@ -860,7 +860,7 @@ class AptProd extends React.Component {
                                                         disabled={this.state.isApontando === true && this.state.tipoApondamento !== "programar" ? true : false}
                                                         onClick={() => this.onPressBtn("programar", true)}
                                                     >
-                                                        {this.state.tipoApondamento === 'programar' && this.state.isApontando ? "Parar" : "Programar"}
+                                                        {this.state.tipoApondamento === 'programar' && this.state.isApontando ? "Retomar" : "Programar"}
                                                     </Button>
                                                 </Col>
                                             </Row>
@@ -874,7 +874,7 @@ class AptProd extends React.Component {
                                                         disabled={this.state.isApontando === true && this.state.tipoApondamento !== "operar" ? true : false}
                                                         onClick={() => this.onPressBtn("operar", true)}
                                                     >
-                                                        {this.state.tipoApondamento === 'operar' && this.state.isApontando ? "Parar" : "Operar"}
+                                                        {this.state.tipoApondamento === 'operar' && this.state.isApontando ? "Retomar" : "Operar"}
                                                     </Button>
                                                 </Col>
                                             </Row>
@@ -888,7 +888,7 @@ class AptProd extends React.Component {
                                                         disabled={this.state.isApontando === true && this.state.tipoApondamento !== "pausar" ? true : false}
                                                         onClick={() => this.onPressBtn("pausar", true)}
                                                     >
-                                                        {this.state.tipoApondamento === 'pausar' && this.state.isApontando ? "Parar" : "Pausar"}
+                                                        {this.state.tipoApondamento === 'pausar' && this.state.isApontando ? "Retomar" : "Pausar"}
                                                     </Button>
                                                 </Col>
                                             </Row>
@@ -902,7 +902,7 @@ class AptProd extends React.Component {
                                                         disabled={this.state.isApontando === true && this.state.tipoApondamento !== "retrabalho" ? true : false}
                                                         onClick={() => this.onPressBtn("retrabalho", true)}
                                                     >
-                                                        {this.state.tipoApondamento === 'retrabalho' && this.state.isApontando ? "Parar" : "Retrabalho"}
+                                                        {this.state.tipoApondamento === 'retrabalho' && this.state.isApontando ? "Retomar" : "Retrabalho"}
                                                     </Button>
                                                 </Col>
                                             </Row>
@@ -916,7 +916,7 @@ class AptProd extends React.Component {
                                                         disabled={this.state.isApontando === true && this.state.tipoApondamento !== "outro" ? true : false}
                                                         onClick={() => this.onPressBtn("outro", true)}
                                                     >
-                                                        {this.state.tipoApondamento === 'outro' && this.state.isApontando ? "Parar" : "Outros"}
+                                                        {this.state.tipoApondamento === 'outro' && this.state.isApontando ? "Retomar" : "Outros"}
                                                     </Button>
                                                 </Col>
                                             </Row>

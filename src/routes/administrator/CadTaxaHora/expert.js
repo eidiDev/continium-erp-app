@@ -253,7 +253,7 @@ class TaxaHoraExpert extends Component {
                                                         type="text" 
                                                         value={user.cod}
                                                         name="cod"
-                                                        disabled={this.state.isNew ? false : true}
+                                                        // disabled={this.state.isNew ? false : true}
                                                         onChange={this.handleChange}/>
                                             </Form.Item>
                                         </div>

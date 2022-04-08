@@ -86,57 +86,58 @@ class ManagementOrder extends Component {
           <EllipsisTooltip title={text}>{text}</EllipsisTooltip>
         ),
       },
-      {
-        title: 'Ordem Principal',
-        dataIndex: 'ordemPrincipal',
-        key: 'ordemPrincipal',
-        width: 150,
-        align: 'center',
-        onCell: () => {
-          return {
-            style: {
-              whiteSpace: 'nowrap',
-              maxWidth: 150,
-            },
-          };
-        },
-        render: (text) => (
-          <EllipsisTooltip title={text}>{text}</EllipsisTooltip>
-        ),
-        // render: (text) => <span>{text === "" ? "Sem dados" : text}</span>
-      },
+      // {
+      //   title: 'Ordem Principal',
+      //   dataIndex: 'ordemPrincipal',
+      //   key: 'ordemPrincipal',
+      //   width: 150,
+      //   align: 'center',
+      //   onCell: () => {
+      //     return {
+      //       style: {
+      //         whiteSpace: 'nowrap',
+      //         maxWidth: 150,
+      //       },
+      //     };
+      //   },
+      //   render: (text) => (
+      //     <EllipsisTooltip title={text}>{text}</EllipsisTooltip>
+      //   ),
+      //   // render: (text) => <span>{text === "" ? "Sem dados" : text}</span>
+      // },
       {
         title: 'Status da Ordem',
         dataIndex: 'status',
         key: 'status',
         width: 150,
         align: 'center',
-        render: (text, record) => {
-          return (
-            <span>
-              <Select
-                defaultValue={
-                  record.status === '' || record.status === undefined
-                    ? ''
-                    : record.status
-                }
-                onChange={(e) => this.changeSelect(e, record)}
-                key={record.id}
-                style={{ width: '100%' }}
-              >
-                <Option value={'planejada'}>Planejada</Option>
-                <Option value={'liberada'}>Liberada</Option>
-                <Option value={'execução'}>Em execução</Option>
-                <Option value={'finalizada'}>Finalizada</Option>
-                <Option value={'pausada'}>Pausada</Option>
-              </Select>
-            </span>
-          );
-        },
+        render: (text) => text.toUpperCase()
+        // render: (text, record) => {
+        //   return (
+        //     <span>
+        //       <Select
+        //         defaultValue={
+        //           record.status === '' || record.status === undefined
+        //             ? ''
+        //             : record.status
+        //         }
+        //         onChange={(e) => this.changeSelect(e, record)}
+        //         key={record.id}
+        //         style={{ width: '100%' }}
+        //       >
+        //         <Option value={'planejada'}>Planejada</Option>
+        //         <Option value={'liberada'}>Liberada</Option>
+        //         <Option value={'execução'}>Em execução</Option>
+        //         <Option value={'finalizada'}>Finalizada</Option>
+        //         <Option value={'pausada'}>Pausada</Option>
+        //       </Select>
+        //     </span>
+        //   );
+        // },
       },
       {
         title: 'Código do Produto',
-        dataIndex: 'product.cod',
+        dataIndex: 'productObj.cod',
         width: 120,
         key: 'product',
       },
@@ -146,25 +147,25 @@ class ManagementOrder extends Component {
         align: 'center',
         dataIndex: 'prioridade',
         key: 'prioridade',
-        render: (text, record) => {
-          return (
-            <span>
-              <Input
-                defaultValue={
-                  record.prioridade === '' || record.prioridade === undefined
-                    ? ''
-                    : record.prioridade
-                }
-                min={1}
-                key={record.id}
-                type="number"
-                name="prioridade"
-                onChange={(e) => this.changeOrder(e, record)}
-                style={{ textAlign: 'center' }}
-              />
-            </span>
-          );
-        },
+        // render: (text, record) => {
+        //   return (
+        //     <span>
+        //       <Input
+        //         defaultValue={
+        //           record.prioridade === '' || record.prioridade === undefined
+        //             ? ''
+        //             : record.prioridade
+        //         }
+        //         min={1}
+        //         key={record.id}
+        //         type="number"
+        //         name="prioridade"
+        //         onChange={(e) => this.changeOrder(e, record)}
+        //         style={{ textAlign: 'center' }}
+        //       />
+        //     </span>
+        //   );
+        // },
       },
       {
         title: 'Qtde a Produzir',
@@ -232,6 +233,7 @@ class ManagementOrder extends Component {
               }
               locale={locale}
               key={record.id}
+              disabled={true}
               format={'DD-MM-YYYY'}
               //onChange={(e,dataEmTexto) => this.dataChangeOrder(record, e,dataEmTexto)}
             />
@@ -255,6 +257,7 @@ class ManagementOrder extends Component {
               locale={locale}
               key={record.id}
               format={'DD-MM-YYYY'}
+              disabled={true}
               onChange={(e, dataEmTexto) =>
                 this.dataChangeOrderEntrega(record, e, dataEmTexto)
               }
@@ -279,6 +282,7 @@ class ManagementOrder extends Component {
               locale={locale}
               key={record.id}
               format={'DD-MM-YYYY'}
+              disabled={true}
               onChange={(e, dataEmTexto) =>
                 this.dataChangeOrder(record, e, dataEmTexto)
               }
@@ -309,12 +313,19 @@ class ManagementOrder extends Component {
         key: 'tempoRealizado',
         align: 'center',
         render: (text, record) => {
-          // let somaTempo = 0
-          // for (const iterator of record.apontamentos) {
-          //     somaTempo += iterator.tempoRealizado
-          // }
-          // return (<Tag color="blue">{somaTempo ? Math.floor((somaTempo) / 60) + ':' + (somaTempo) % 60 : '0:00'} hrs </Tag>)
-          return <Tag color="blue">{text} hrs </Tag>;
+          let inicioTempo = '00:00:00';
+          let somasTempo;
+          let index = 0;
+
+          for (const iterator of record.apontamentos) {
+            if(index === 0){
+              somasTempo = addTimes(inicioTempo , iterator.tempoRealizado)
+            }else{
+              somasTempo = addTimes(somasTempo , iterator.tempoRealizado)
+            }
+            index = index + 1
+          }
+          return (<Tag color="blue">{somasTempo} </Tag>)
         },
       },
       {
@@ -1450,7 +1461,7 @@ class ManagementOrder extends Component {
                     </Form.Item>
                   </div>
                 </Col>
-                <Col span={4} style={{ marginTop: 5 }}>
+                {/* <Col span={4} style={{ marginTop: 5 }}>
                   <div className="gx-form-row0">
                     <br />
                     <br />
@@ -1466,7 +1477,7 @@ class ManagementOrder extends Component {
                       Salvar
                     </Button>
                   </div>
-                </Col>
+                </Col> */}
               </Row>
             </Card>
           </Col>
@@ -1494,5 +1505,51 @@ class ManagementOrder extends Component {
     );
   }
 }
+
+
+
+function addTimes(startTime, endTime) {
+  var times = [0, 0, 0];
+  var max = times.length;
+
+  var a = (startTime || '').split(':');
+  var b = (endTime || '').split(':');
+
+  // normalize time values
+  for (var i = 0; i < max; i++) {
+      a[i] = isNaN(parseInt(a[i])) ? 0 : parseInt(a[i]);
+      b[i] = isNaN(parseInt(b[i])) ? 0 : parseInt(b[i]);
+  }
+
+  // store time values
+  for (var i = 0; i < max; i++) {
+      times[i] = a[i] + b[i];
+  }
+
+  var hours = times[0];
+  var minutes = times[1];
+  var seconds = times[2];
+
+  if (seconds >= 60) {
+      var m = (seconds / 60) << 0;
+      minutes += m;
+      seconds -= 60 * m;
+  }
+
+  if (minutes >= 60) {
+      var h = (minutes / 60) << 0;
+      hours += h;
+      minutes -= 60 * h;
+  }
+
+  return (
+      ('0' + hours).slice(-2) +
+      ':' +
+      ('0' + minutes).slice(-2) +
+      ':' +
+      ('0' + seconds).slice(-2)
+  );
+}
+
 
 export default ManagementOrder;

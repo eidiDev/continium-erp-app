@@ -24,6 +24,7 @@ const model = 'stepxprod';
 const model2 = 'establishment';
 const model3 = 'product';
 const model4 = 'stepprocess';
+const model5 = 'machinelabor';
 
 class etapaXprod extends Component {
   constructor(props) {
@@ -45,6 +46,7 @@ class etapaXprod extends Component {
       listofProds: [],
       listofEtapas: [],
       tableList: [],
+      listOfOperadores: [],
       jsonEtapas: {
         etapas: '',
         maquina: '',
@@ -144,7 +146,7 @@ class etapaXprod extends Component {
                     auxthis.handleDeleteAddressRow(record.key, e);
                     message.success('Etapa removida');
                   },
-                  onCancel() {},
+                  onCancel() { },
                 });
               }}
             />
@@ -164,6 +166,7 @@ class etapaXprod extends Component {
     this.getEstabs();
     this.getProd();
     this.getEtapas();
+    this.getOperators();
   }
 
   getEstabs() {
@@ -231,6 +234,40 @@ class etapaXprod extends Component {
       });
   }
 
+  getOperators() {
+    api
+      .get(`${model5}`, {
+        // params: {
+        //   params: [
+        //     {
+        //       field: 'status',
+        //       value: true,
+        //       op: '=',
+        //     },
+        //   ],
+        // },
+      })
+      .then((result) => {
+        let dataProd = [];
+
+        dataProd = result.data.data;
+
+        let dataOperadores = [];
+        dataProd.forEach(element => {
+          if (element.operador === true) {
+            dataOperadores.push(element);
+          }
+        });
+
+        this.setState({
+          listOfOperadores: dataOperadores,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   handleOnClickRow1 = (record, rowIndex) => {
     var parent = this;
     //Primeria coisa ele seta loading para true
@@ -240,22 +277,22 @@ class etapaXprod extends Component {
     });
 
     //Coloquei esse timeout de 1 segundo para simular o carregamento
-      //Agora ele vai buscar o registro no servidor
-      api
-        .get(`${model}/${record.id}`, {})
-        .then((result) => {
-          //Caso consiga recuperar o model, ele atualiza a tela e para de carregar
-          // console.log(result.data.adresses);
-          // console.log(result.adresses);
-          message.success('Etapa carregada com sucesso!');
-          parent.setStateEdit(result.data);
-          console.log(result.data);
-        })
-        .catch(function (error) {
-          // console.log(error);
-          message.error('Erro ao buscar registro, tente novamente mais tarde!');
-          parent.setStateNew();
-        });
+    //Agora ele vai buscar o registro no servidor
+    api
+      .get(`${model}/${record.id}`, {})
+      .then((result) => {
+        //Caso consiga recuperar o model, ele atualiza a tela e para de carregar
+        // console.log(result.data.adresses);
+        // console.log(result.adresses);
+        message.success('Etapa carregada com sucesso!');
+        parent.setStateEdit(result.data);
+        console.log(result.data);
+      })
+      .catch(function (error) {
+        // console.log(error);
+        message.error('Erro ao buscar registro, tente novamente mais tarde!');
+        parent.setStateNew();
+      });
   };
 
   onHandleClickSave = () => {
@@ -270,52 +307,52 @@ class etapaXprod extends Component {
         loadingTip: 'Salvando registro, aguarde...',
       });
       // console.log('vai tentar gravar',record)
-        //Verifica se é uma atualizacao (PUT) ou novo registro (POST)
-        let METHOD = 'PATCH';
-        let URL = `${model}/${record.id}`;
+      //Verifica se é uma atualizacao (PUT) ou novo registro (POST)
+      let METHOD = 'PATCH';
+      let URL = `${model}/${record.id}`;
 
-        if (parent.state.isNew) {
-          METHOD = 'POST';
-          URL = `${model}`;
-          // record = Object.assign({},record)
-        }
-        // console.log('onHandleSaveButton', record);
-        const {
-          establishment,
-          product,
-          status,
-          description,
-          descriptionStep,
-        } = record;
+      if (parent.state.isNew) {
+        METHOD = 'POST';
+        URL = `${model}`;
+        // record = Object.assign({},record)
+      }
+      // console.log('onHandleSaveButton', record);
+      const {
+        establishment,
+        product,
+        status,
+        description,
+        descriptionStep,
+      } = record;
 
-        console.log(establishment);
+      console.log(establishment);
 
-        api({
-          method: METHOD,
-          url: URL,
-          data: {
-            establishment: establishment,
-            product: product,
-            description: description,
-            descriptionStep: descriptionStep,
-            steps: tabelalista,
-            status: status,
-          },
+      api({
+        method: METHOD,
+        url: URL,
+        data: {
+          establishment: establishment,
+          product: product,
+          description: description,
+          descriptionStep: descriptionStep,
+          steps: tabelalista,
+          status: status,
+        },
+      })
+        .then((result) => {
+          //Caso consiga recuperar o model, ele atualiza a tela e para de carregar
+          message.success('Etapa salva com sucesso!');
+          console.log(result.data);
+          parent.setStateEdit(result.data);
+          parent.leftListChild.current.fetchLeftList();
         })
-          .then((result) => {
-            //Caso consiga recuperar o model, ele atualiza a tela e para de carregar
-            message.success('Etapa salva com sucesso!');
-            console.log(result.data);
-            parent.setStateEdit(result.data);
-            parent.leftListChild.current.fetchLeftList();
-          })
-          .catch(function (error) {
-             console.log(error);
-            parent.setStateEdit(record);
-            message.error(
-              'Erro ao gravar registro, tente novamente mais tarde!'
-            );
-          });
+        .catch(function (error) {
+          console.log(error);
+          parent.setStateEdit(record);
+          message.error(
+            'Erro ao gravar registro, tente novamente mais tarde!'
+          );
+        });
     } else {
       message.warning('Campos obrigatórios em branco!');
       this.validator.showMessages();
@@ -348,25 +385,25 @@ class etapaXprod extends Component {
           loading: true,
           loadingTip: 'Excluindo registro, aguarde...',
         });
-          //Agora ele vai buscar o registro no servidor
-          let METHOD = 'DELETE';
-          let URL = `${model}/${record.id}`;
-          api({
-            method: METHOD,
-            url: URL,
+        //Agora ele vai buscar o registro no servidor
+        let METHOD = 'DELETE';
+        let URL = `${model}/${record.id}`;
+        api({
+          method: METHOD,
+          url: URL,
+        })
+          .then((result) => {
+            //Caso consiga recuperar o model, ele atualiza a tela e para de carregar
+            message.success('Registro excluido com sucesso!');
+            parent.setStateNew();
+            parent.leftListChild.current.fetchLeftList();
           })
-            .then((result) => {
-              //Caso consiga recuperar o model, ele atualiza a tela e para de carregar
-              message.success('Registro excluido com sucesso!');
-              parent.setStateNew();
-              parent.leftListChild.current.fetchLeftList();
-            })
-            .catch(function (error) {
-              // console.log(error);
-              message.error(
-                'Erro ao excluir registro, tente novamente mais tarde!'
-              );
-            });
+          .catch(function (error) {
+            // console.log(error);
+            message.error(
+              'Erro ao excluir registro, tente novamente mais tarde!'
+            );
+          });
         parent.setStateNew();
       },
       onCancel() {
@@ -404,7 +441,7 @@ class etapaXprod extends Component {
   //Seta o estado para edição
   setStateEdit = (model) => {
     console.log(model);
-    model.establishment = model.establishment ? model.establishment : null ;
+    model.establishment = model.establishment ? model.establishment : null;
     model.product = model.product;
 
     this.setState({
@@ -486,8 +523,8 @@ class etapaXprod extends Component {
         newstepXprod['tempoMaquina'] = obj.generaldata.tempXqtdMaquina;
         newstepXprod['programador'] = obj.generaldata.codProgramador
           ? obj.generaldata.codProgramador +
-            ' - ' +
-            obj.generaldata.descProgramador
+          ' - ' +
+          obj.generaldata.descProgramador
           : '';
         newstepXprod['tempoProgramador'] = obj.generaldata.tempoProgramador;
         newstepXprod['operador'] = obj.generaldata.codOperador
@@ -618,6 +655,27 @@ class etapaXprod extends Component {
   //     console.log(inputValue, option);
   //     option.props.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
   // }
+
+  handleOperador = event => {
+    let auxList = this.state.listOfOperadores;
+    let newStep = this.state.jsonEtapas;
+    
+    console.log(event);
+    auxList.map( obj => {
+        if(obj.id === event){
+            newStep["operador"] = obj.cod
+            newStep["tempoOperador"] = obj.ratetime
+
+            console.log(newStep);
+            this.setState({
+                jsonEtapas: newStep 
+            })
+        }
+        return(
+            ''
+        )
+    });
+}
 
   Content = (stepXprod, estabs, prods, etapas) => {
     return (
@@ -815,10 +873,28 @@ class etapaXprod extends Component {
                   <Col lg={6} md={6} sm={12} xs={24}>
                     <div className="gx-form-row0">
                       <Form.Item label="Operador">
-                        <Input
+                        {/* <Input
                           value={this.state.jsonEtapas.operador}
-                          disabled={true}
-                        />
+                          disabled={!this.state.jsonEtapas.operador}
+                        /> */}
+
+                        <Select
+                          value={this.state.jsonEtapas.operador}
+                          // style={{ width: 250 }} 
+                          onChange={this.handleOperador}
+                          disabled={
+                            !this.state.jsonEtapas.operador ||
+                            this.state.jsonEtapas.operador === '-'
+                          }
+                        >
+                          {
+                              this.state.listOfOperadores.map(m => {
+                              return (
+                                <Option value={m.id}>{m.cod} - {m.name}</Option>
+                              )
+                            })
+                          }
+                        </Select>
                       </Form.Item>
                     </div>
                   </Col>

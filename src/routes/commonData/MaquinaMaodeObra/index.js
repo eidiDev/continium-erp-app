@@ -647,17 +647,17 @@ class MaquinaMaodeObra extends Component {
                             :
                             ""
                             }
-                            <Row>
+                            {/* <Row>
                                 <Col lg={6} md={6} sm={12} xs={24}>
                                     <div className="gx-form-row0">
                                         <Form.Item label="Possui Controle?">
                                             <Checkbox checked={machine.controle} onChange={e => this.onChangeCheck("controle", e)}>Sim</Checkbox>
                                             
-                                            {/* <Checkbox checked={this.state.machine.montagem} onChange={e => this.onChangeCheck("montagem", e)}>Montagem</Checkbox> */}
+                                            <Checkbox checked={this.state.machine.montagem} onChange={e => this.onChangeCheck("montagem", e)}>Montagem</Checkbox>
                                         </Form.Item>
                                     </div>
                                 </Col>
-                            </Row>
+                            </Row> */}
                         </Card>  
                     </Col>
                 </Row>
@@ -705,11 +705,6 @@ class MaquinaMaodeObra extends Component {
                                 className="gx-btn-red"
                                 onClick={this.onHandleClickDelete}
                                 >Excluir</Button>
-                            <Button 
-                                block
-                                type="default"
-                                onClick={this.onCancel}
-                                >Cancelar</Button>
                         </Card>
                     </Col>
                 </Row>

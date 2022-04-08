@@ -1495,14 +1495,24 @@ class ProdOrder extends Component {
                     <div className="gx-form-row0">
                       <Form.Item label="Cliente" required={true}>
                         <Select
+                          showSearch
                           value={orderPro.partner}
                           // style={{ width: 160 }}
                           onChange={this.handlePartner}
+                          filterOption={(inputValue, option) => {
+                            console.log(option);
+                           return option.props.children
+                            .toUpperCase()
+                            .indexOf(inputValue.toUpperCase()) !== -1
+                          }
+                            // console.log(inputValue)
+                       
+                          }
                         >
                           {partner.map((e) => {
                             return (
                               <Option value={e.id}>
-                                {e.name} - {e.lastname}
+                                {e.name}
                               </Option>
                             );
                           })}
@@ -1576,7 +1586,7 @@ class ProdOrder extends Component {
                   </Col>
                   <Col lg={4} md={6} sm={12} xs={24}>
                     <div className="gx-form-row0">
-                      <Form.Item label="Pedido Cliente">
+                      <Form.Item label="Nº Pedido">
                         <Input
                           type="text"
                           // style={{ width: 120 }}
@@ -1589,7 +1599,7 @@ class ProdOrder extends Component {
                   </Col>
                   <Col lg={4} md={6} sm={12} xs={24}>
                     <div className="gx-form-row0">
-                      <Form.Item label="Pedido Venda">
+                      <Form.Item label="Nº Proposta">
                         <Input
                           type="text"
                           // style={{ width: 120 }}

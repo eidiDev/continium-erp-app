@@ -312,12 +312,6 @@ class Estabelecimento extends Component {
                                 className="gx-btn-red"
                                 onClick={this.onHandleClickDelete}
                                 >Excluir</Button>
-
-                            <Button 
-                                block
-                                type="default"
-                                onClick={this.onCancel}
-                                >Cancelar</Button>
                         </Card>
                     </Col>
                 </Row>

@@ -939,14 +939,6 @@ class EstapasProcesso extends Component {
                                 Excluir
                             </Button>
 
-                            <Button 
-                                block
-                                type="default"
-                                onClick={this.onCancel}
-                            >
-                                Cancelar
-                            </Button>
-
                         </Card>
                     </Col>
                 </Row>

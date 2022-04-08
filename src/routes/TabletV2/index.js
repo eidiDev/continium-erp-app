@@ -373,10 +373,6 @@ class DashboardV3 extends React.Component {
                                               {`Data de Entrega: ${item.orderProdObj.dataEntrega}`}
                                             </Col>
 
-                                            <Col span={24}>
-                                              {`Descrição: ${item.orderProdObj.dataProd}`}
-                                            </Col>
-
                                           </Row>
                                         </Card>
                                       </List.Item>
