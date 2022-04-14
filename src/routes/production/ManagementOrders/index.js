@@ -317,13 +317,17 @@ class ManagementOrder extends Component {
           let somasTempo;
           let index = 0;
 
-          for (const iterator of record.apontamentos) {
-            if(index === 0){
-              somasTempo = addTimes(inicioTempo , iterator.tempoRealizado)
-            }else{
-              somasTempo = addTimes(somasTempo , iterator.tempoRealizado)
+          if(record.apontamentos.length === 0){
+            somasTempo = inicioTempo
+          }else{
+            for (const iterator of record.apontamentos) {
+              if(index === 0){
+                somasTempo = addTimes(inicioTempo , iterator.tempoRealizado)
+              }else{
+                somasTempo = addTimes(somasTempo , iterator.tempoRealizado)
+              }
+              index = index + 1
             }
-            index = index + 1
           }
           return (<Tag color="blue">{somasTempo} </Tag>)
         },
