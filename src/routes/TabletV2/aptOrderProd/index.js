@@ -278,7 +278,6 @@ class AptProd extends React.Component {
             orderProd: orderProdSelect.orderProdObj.id,
             machineLabor: null,
             colaborador: operadorSelect.id,
-            etapa: orderProdSelect.id,
             maquina: orderProdSelect.maquina ? orderProdSelect.maquina : orderProdSelect.montagem,
             orderProdMaqId: orderProdSelect.id,
             motivo_retrabalho: this.state.motivoText
@@ -381,7 +380,6 @@ class AptProd extends React.Component {
                 tipo: tipo,
                 qtdeApontada: id === 0 ? 0 : this.state.qtdeApontada,
                 orderProd: orderProdSelect.orderProdObj.id,
-                etapa: orderProdSelect.id,
                 maquina: orderProdSelect.maquina ? orderProdSelect.maquina : orderProdSelect.montagem,
                 dataInicio: Moment().format("DD/MM/YY HH:mm:ss"),
                 colaborador: operadorSelect.id,

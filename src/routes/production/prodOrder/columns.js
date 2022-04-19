@@ -11,7 +11,8 @@ const apontamentoColumns = [
     {
         title: 'Maquina',
         dataIndex:'etapaObj.cod',
-        key: 'etapa'
+        key: 'etapa',
+        render: (text,record) => text ? text : record.maquina
     },
     {
         title: 'Mão de obra',
