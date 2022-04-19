@@ -194,7 +194,17 @@ class etapaXprod extends Component {
 
   getProd() {
     api
-      .get(`${model3}/`, {})
+      .get(`${model3}/`, {
+        params: {
+          params: [
+            {
+              field: 'is_active',
+              value: true,
+              op: '=',
+            },
+          ],
+        },
+      })
       .then((result) => {
         let dataProd = [];
         dataProd = result.data.data;

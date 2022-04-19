@@ -11,6 +11,7 @@ import {
   Modal,
   Select,
   Upload,
+  Checkbox
 } from 'antd';
 import { Icon } from '@ant-design/compatible';
 import api from 'util/Api';
@@ -51,6 +52,7 @@ class Produtos extends Component {
       loader: true,
       produtos: {
         category: 5,
+        is_active: true
       },
       canNew: true,
       canSave: true,
@@ -373,6 +375,7 @@ class Produtos extends Component {
         materialHaste,
         unidadeCamisa,
         unidadeHaste,
+        is_active
       } = record;
 
       //var myJSON = JSON.stringify(fileList);
@@ -403,6 +406,7 @@ class Produtos extends Component {
           materialHaste: materialHaste,
           unidadeCamisa: unidadeCamisa,
           unidadeHaste: unidadeHaste,
+          is_active
         },
       })
         .then((result) => {
@@ -491,6 +495,14 @@ class Produtos extends Component {
         })
         .catch((error) => {});
     }
+  };
+
+  onChangeCheck = (event) => {
+    let newstepXprod = this.state.produtos;
+    newstepXprod['is_active'] = event.target.checked;
+    this.setState({
+      produtos: newstepXprod,
+    });
   };
 
   Content = (produtos, categs) => {
@@ -588,6 +600,17 @@ class Produtos extends Component {
                           'required',
                           { className: 'text-danger' }
                         )}
+                      </Form.Item>
+                    </div>
+                  </Col>
+
+                  <Col lg={1} md={1} sm={12} xs={24}>
+                    <div className="gx-form-row0">
+                      <Form.Item label="Ativo">
+                        <Checkbox
+                          checked={produtos.is_active}
+                          onChange={this.onChangeCheck}
+                        />
                       </Form.Item>
                     </div>
                   </Col>
@@ -900,6 +923,7 @@ class Produtos extends Component {
       canDelete: false,
       produtos: {
         category: 5,
+        is_active: true
       },
       fileList: [],
       filePrincipalList: [],

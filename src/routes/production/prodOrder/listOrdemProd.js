@@ -103,9 +103,13 @@ class ListOrdemProducao extends Component {
             limit: limit
           }})
         .then((result) => {
-            result.data.data.sort((a,b) => (a.id > b.id ? -1 : 1) );
+            let returnData
+            returnData = result.data.data.sort((a,b) => (a.id > b.id ? -1 : 1) );
+            returnData = result.data.data.filter((order) => {
+                return order.productObj.is_active === true
+            })
             this.setState({
-                data: result.data.data
+                data: returnData
             });
         },)
         .catch(function(error) {
