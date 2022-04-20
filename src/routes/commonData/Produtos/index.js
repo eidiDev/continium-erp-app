@@ -449,7 +449,7 @@ class Produtos extends Component {
       .then((result) => {
         // console.log(result);
 
-        window.open(result.request.responseURL);
+        window.open(result.data.url_link);
       })
       .catch(function (error) {
         console.log(error);
