@@ -81,7 +81,7 @@ class CustomerList extends Component {
     fetchLeftList = () => {
         console.log('fecthLeftlist');
         api.get(`${model}`, {params: {
-            limit: 1000
+            limit: 5000
           }})
         .then((result) => {
             console.log(result);

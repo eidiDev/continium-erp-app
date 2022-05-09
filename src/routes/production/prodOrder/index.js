@@ -271,7 +271,9 @@ class ProdOrder extends Component {
 
   getPartner() {
     api
-      .get(`${model4}`, {})
+      .get(`${model4}`, {params: {
+        limit: 5000
+      }})
       .then((result) => {
         let dataCli = [];
         dataCli = result.data.data;
